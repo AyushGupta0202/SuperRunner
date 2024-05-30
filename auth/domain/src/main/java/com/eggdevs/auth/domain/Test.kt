@@ -1,4 +1,4 @@
 package com.eggdevs.auth.domain
 
-class MyClass {
+class Test {
 }
