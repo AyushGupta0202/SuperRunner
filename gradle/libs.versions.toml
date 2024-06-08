@@ -119,4 +119,5 @@ androidDynamicFeature = { id = "com.android.dynamic-feature", version.ref = "agp
 mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsPlugin"}
 superrunner-android-application = { id = "superrunner.android.application", version = "unspecified" }
 superrunner-android-application-compose = { id = "superrunner.android.application.compose", version = "unspecified" }
+superrunner-android-library = { id = "superrunner.android.library", version = "unspecified" }
 
