@@ -120,4 +120,5 @@ mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.
 superrunner-android-application = { id = "superrunner.android.application", version = "unspecified" }
 superrunner-android-application-compose = { id = "superrunner.android.application.compose", version = "unspecified" }
 superrunner-android-library = { id = "superrunner.android.library", version = "unspecified" }
+superrunner-android-library-compose = { id = "superrunner.android.library.compose", version = "unspecified" }
 

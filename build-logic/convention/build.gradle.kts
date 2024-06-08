@@ -26,5 +26,9 @@ gradlePlugin {
             id = "superrunner.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
+        register("androidLibraryCompose") { // register the AndroidLibraryConventionPlugin to be used in the project
+            id = "superrunner.android.library.compose"
+            implementationClass = "AndroidLibraryComposeConventionPlugin"
+        }
     }
 }
