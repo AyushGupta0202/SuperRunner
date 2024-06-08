@@ -121,4 +121,22 @@ superrunner-android-application = { id = "superrunner.android.application", vers
 superrunner-android-application-compose = { id = "superrunner.android.application.compose", version = "unspecified" }
 superrunner-android-library = { id = "superrunner.android.library", version = "unspecified" }
 superrunner-android-library-compose = { id = "superrunner.android.library.compose", version = "unspecified" }
+superrunner-android-feature-ui = { id = "superrunner.android.feature.ui", version = "unspecified" }
+
+[bundles]
+compose = [
+    "androidx-activity-compose",
+    "androidx-lifecycle-runtime-compose",
+    "androidx-lifecycle-viewmodel-compose",
+    "androidx-ui-tooling-preview",
+    "androidx-ui-graphics",
+    "androidx-material3",
+    "androidx-ui"
+]
+compose-debug = [
+    "androidx-ui-tooling",
+    "androidx-ui-test-manifest",
+]
+koin = ["koin-core", "koin-android", "koin-android-workmanager"]
+koin-compose = ["koin-core", "koin-android", "koin-android-workmanager", "koin-androidx-compose"]
 

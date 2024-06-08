@@ -30,5 +30,9 @@ gradlePlugin {
             id = "superrunner.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
+        register("androidFeatureUi") { // register the AndroidLibraryConventionPlugin to be used in the project
+            id = "superrunner.android.feature.ui"
+            implementationClass = "AndroidFeatureUiConventionPlugin"
+        }
     }
 }
