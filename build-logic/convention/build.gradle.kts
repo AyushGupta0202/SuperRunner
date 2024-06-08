@@ -11,3 +11,13 @@ dependencies {
     compileOnly(libs.ksp.gradlePlugin)
     compileOnly(libs.room.gradlePlugin)
 }
+
+
+gradlePlugin {
+    plugins {
+        register("androidApplication") { // register the AndroidApplicationConventionPlugin to be used in the project
+            id = "superrunner.android.application"
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
+    }
+}

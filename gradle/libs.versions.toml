@@ -42,7 +42,7 @@ annotation = "1.8.0"
 # Project versions
 projectApplicationId = "com.plcoding.runique"
 projectVersionName = "1.0"
-projectMinSdkVersion = "25"
+projectMinSdkVersion = "30"
 projectTargetSdkVersion = "34"
 projectCompileSdkVersion = "34"
 projectVersionCode = "1"
@@ -117,4 +117,5 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 room = { id = "androidx.room", version.ref = "room" }
 androidDynamicFeature = { id = "com.android.dynamic-feature", version.ref = "agp" }
 mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsPlugin"}
+superrunner-android-application = { id = "superrunner.android.application", version = "unspecified" }
 
