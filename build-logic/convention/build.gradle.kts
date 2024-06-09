@@ -42,5 +42,9 @@ gradlePlugin {
             id = "superrunner.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
         }
+        register("jvmKtor") { // register the AndroidLibraryConventionPlugin to be used in the project
+            id = "superrunner.jvm.ktor"
+            implementationClass = "JvmKtorConventionPlugin"
+        }
     }
 }
