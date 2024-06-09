@@ -34,5 +34,9 @@ gradlePlugin {
             id = "superrunner.android.feature.ui"
             implementationClass = "AndroidFeatureUiConventionPlugin"
         }
+        register("androidRoom") { // register the AndroidLibraryConventionPlugin to be used in the project
+            id = "superrunner.android.room"
+            implementationClass = "AndroidRoomConventionPlugin"
+        }
     }
 }

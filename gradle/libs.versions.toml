@@ -122,6 +122,7 @@ superrunner-android-application-compose = { id = "superrunner.android.applicatio
 superrunner-android-library = { id = "superrunner.android.library", version = "unspecified" }
 superrunner-android-library-compose = { id = "superrunner.android.library.compose", version = "unspecified" }
 superrunner-android-feature-ui = { id = "superrunner.android.feature.ui", version = "unspecified" }
+superrunner-android-room = { id = "superrunner.android.room", version = "unspecified" }
 
 [bundles]
 compose = [

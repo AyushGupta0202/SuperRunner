@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.superrunner.android.library)
+    alias(libs.plugins.superrunner.android.room)
 }
 
 android {
