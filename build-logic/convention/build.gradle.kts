@@ -38,5 +38,9 @@ gradlePlugin {
             id = "superrunner.android.room"
             implementationClass = "AndroidRoomConventionPlugin"
         }
+        register("jvmLibrary") { // register the AndroidLibraryConventionPlugin to be used in the project
+            id = "superrunner.jvm.library"
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
     }
 }
