@@ -38,3 +38,5 @@ include(":run:presentation")
 include(":run:location")
 include(":run:network")
 include(":core:utils")
+
+gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))

@@ -2,7 +2,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.eggdevs.runique.buildlogic"
+group = "com.eggdevs.superrunner.buildlogic"
 
 dependencies {
     compileOnly(libs.android.gradlePlugin)
