@@ -2,6 +2,7 @@ import com.android.build.api.dsl.LibraryExtension
 import com.eggdevs.convention.ExtensionType
 import com.eggdevs.convention.configureBuildTypes
 import com.eggdevs.convention.configureKotlinAndroid
+import com.eggdevs.convention.configureTestLibraries
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -28,6 +29,8 @@ class AndroidLibraryConventionPlugin: Plugin<Project> {
                     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                     consumerProguardFiles("consumer-rules.pro")
                 }
+
+                configureTestLibraries(this)
             }
 
             dependencies {

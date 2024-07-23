@@ -54,3 +54,25 @@ private fun Project.configureKotlin() {
         }
     }
 }
+
+internal fun Project.configureTestLibraries(commonExtension: CommonExtension<*, *, *, *, *, *>) {
+    configureUnitTests(commonExtension)
+    configureInstrumentationTests(commonExtension)
+}
+
+internal fun Project.configureUnitTests(commonExtension: CommonExtension<*, *, *, *, *, *>) {
+    commonExtension.apply {
+        dependencies {
+            "testImplementation"(libs.findLibrary("androidx.junit").get())
+        }
+    }
+}
+
+internal fun Project.configureInstrumentationTests(commonExtension: CommonExtension<*, *, *, *, *, *>) {
+    commonExtension.apply {
+        dependencies {
+            "androidTestImplementation"(libs.findLibrary("androidx.junit").get())
+            "androidTestImplementation"(libs.findLibrary("androidx.espresso.core").get())
+        }
+    }
+}

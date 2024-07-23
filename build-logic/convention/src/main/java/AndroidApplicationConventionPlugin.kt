@@ -2,6 +2,7 @@ import com.android.build.api.dsl.ApplicationExtension
 import com.eggdevs.convention.ExtensionType
 import com.eggdevs.convention.configureBuildTypes
 import com.eggdevs.convention.configureKotlinAndroid
+import com.eggdevs.convention.configureTestLibraries
 import com.eggdevs.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -26,6 +27,8 @@ class AndroidApplicationConventionPlugin: Plugin<Project> {
                 }
 
                 configureKotlinAndroid(this)
+
+                configureTestLibraries(this)
 
                 configureBuildTypes(
                     commonExtension = this,
