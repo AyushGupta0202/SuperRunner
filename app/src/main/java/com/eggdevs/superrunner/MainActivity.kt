@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.eggdevs.core.presentation.designsystem.AnalyticsIcon
 import com.eggdevs.core.presentation.designsystem.SuperRunnerTheme
 
@@ -21,8 +22,10 @@ class MainActivity : ComponentActivity() {
             SuperRunnerTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Greeting("Android")
-                    Icon(imageVector = AnalyticsIcon, contentDescription = null)
+//                    Greeting("Android")
+//                    Icon(imageVector = AnalyticsIcon, contentDescription = null)
+                    val navController = rememberNavController()
+                    NavigationRoot(navController = navController)
                 }
             }
         }

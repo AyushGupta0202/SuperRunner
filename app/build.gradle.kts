@@ -55,6 +55,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    // koin
+    implementation(libs.bundles.koin)
+
     // Location
     implementation(libs.google.android.gms.play.services.location)
 

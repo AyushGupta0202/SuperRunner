@@ -76,7 +76,7 @@ fun SuperRunnerPasswordTextField(
         BasicSecureTextField(
             state = state,
             textStyle = LocalTextStyle.current.copy(
-                color = MaterialTheme.colorScheme.background
+                color = MaterialTheme.colorScheme.onBackground
             ),
             textObfuscationMode = if (isPasswordVisible) {
                 TextObfuscationMode.Visible
@@ -84,7 +84,7 @@ fun SuperRunnerPasswordTextField(
                 TextObfuscationMode.Hidden
             },
             keyboardType = KeyboardType.Password,
-            cursorBrush = SolidColor(MaterialTheme.colorScheme.background),
+            cursorBrush = SolidColor(MaterialTheme.colorScheme.onBackground),
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
                 .background(
