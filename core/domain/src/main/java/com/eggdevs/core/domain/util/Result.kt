@@ -5,7 +5,7 @@ sealed interface Result<out D, out E: Error> {
     data class Error<out E: com.eggdevs.core.domain.util.Error>(val error: E) : Result<Nothing, E>
 }
 
-typealias EmptyDataResult<E> = Result<Unit, E>
+typealias EmptyResult<E> = Result<Unit, E>
 
 inline fun <T, E: Error, R> Result<T, E>.map(map: (T) -> R): Result<R, E> {
     return when(this) {
@@ -14,6 +14,6 @@ inline fun <T, E: Error, R> Result<T, E>.map(map: (T) -> R): Result<R, E> {
     }
 }
 
-fun <T, E: Error> Result<T, E>.asEmptyDataResult(): EmptyDataResult<E> {
+fun <T, E: Error> Result<T, E>.asEmptyDataResult(): EmptyResult<E> {
     return map {  }
 }

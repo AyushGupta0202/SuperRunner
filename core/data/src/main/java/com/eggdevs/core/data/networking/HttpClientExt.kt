@@ -1,4 +1,4 @@
-package com.eggdevs.core.data.network
+package com.eggdevs.core.data.networking
 
 import com.eggdevs.core.data.BuildConfig
 import com.eggdevs.core.domain.util.DataError

@@ -11,16 +11,29 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eggdevs.auth.domain.UserDataValidator
-import kotlinx.coroutines.flow.flowOn
+import com.eggdevs.auth.domain.repository.AuthRepository
+import com.eggdevs.auth.presentation.R
+import com.eggdevs.core.domain.util.DataError
+import com.eggdevs.core.domain.util.Result
+import com.eggdevs.core.presentation.ui.UiText
+import com.eggdevs.core.presentation.ui.asUiText
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 
 class RegisterViewModel(
-    private val userDataValidator: UserDataValidator
+    private val userDataValidator: UserDataValidator,
+    private val authRepository: AuthRepository
 ): ViewModel() {
 
     var state by mutableStateOf(RegisterState())
         private set
+
+    private val authEventChannel = Channel<RegisterEvent>()
+    val authEvents = authEventChannel.receiveAsFlow()
+
 
     init {
         state.email.textAsFlow()
@@ -50,9 +63,37 @@ class RegisterViewModel(
 
     fun onAction(action: RegisterAction) {
         when(action) {
-            RegisterAction.OnLoginClick -> TODO()
-            RegisterAction.OnRegisterClick -> TODO()
-            RegisterAction.OnTogglePasswordVisibilityClick -> TODO()
+            RegisterAction.OnTogglePasswordVisibilityClick -> {
+                state = state.copy(
+                    isPasswordVisible = !state.isPasswordVisible
+                )
+            }
+            RegisterAction.OnRegisterClick -> register()
+//            RegisterAction.OnLoginClick -> {} -> {} -> We can directly handle this from the UI
+            else -> Unit
+        }
+    }
+
+    private fun register() {
+        viewModelScope.launch {
+            state = state.copy(isRegistering = true)
+            val result = authRepository.register(
+                email = state.email.text.toString().trim(),
+                password = state.password.text.toString()
+            )
+            state = state.copy(isRegistering = false)
+            when(result) {
+                is Result.Error -> {
+                    if (result.error == DataError.Network.CONFLICT) {
+                        authEventChannel.send(RegisterEvent.Error(
+                            UiText.StringResource(R.string.error_email_exists)
+                        ))
+                    } else {
+                        authEventChannel.send(RegisterEvent.Error(result.error.asUiText()))
+                    }
+                }
+                is Result.Success -> authEventChannel.send(RegisterEvent.RegistrationSuccess)
+            }
         }
     }
 }
