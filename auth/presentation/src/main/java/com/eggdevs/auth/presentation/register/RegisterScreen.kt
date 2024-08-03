@@ -141,7 +141,7 @@ fun RegisterScreen(
                     }
                 }
             )
-            // Clickable text for login ends\
+            // Clickable text for login ends
 
             Spacer(modifier = Modifier.height(48.dp))
             SuperRunnerTextField(

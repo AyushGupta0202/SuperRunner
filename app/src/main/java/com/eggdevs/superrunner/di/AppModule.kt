@@ -1,14 +1,19 @@
 package com.eggdevs.superrunner.di
 
-import com.eggdevs.auth.data.EmailValidator
-import com.eggdevs.auth.domain.PatternValidator
-import com.eggdevs.auth.domain.UserDataValidator
-import org.koin.core.module.dsl.singleOf
+import android.content.SharedPreferences
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
+import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
 val appModule = module {
-    single<PatternValidator> {
-        EmailValidator
+    single<SharedPreferences> {
+        EncryptedSharedPreferences(
+            androidApplication(),
+            "auth_pref",
+            MasterKey(androidApplication()),
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
     }
-    singleOf(::UserDataValidator)
 }
