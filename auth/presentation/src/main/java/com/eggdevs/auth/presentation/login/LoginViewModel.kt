@@ -1,4 +1,3 @@
-@file:Suppress("OPT_IN_USAGE_FUTURE_ERROR")
 @file:OptIn(ExperimentalFoundationApi::class)
 
 package com.eggdevs.auth.presentation.login
@@ -13,8 +12,6 @@ import androidx.lifecycle.viewModelScope
 import com.eggdevs.auth.domain.UserDataValidator
 import com.eggdevs.auth.domain.repository.AuthRepository
 import com.eggdevs.auth.presentation.R
-import com.eggdevs.core.domain.SessionStorage
-import com.eggdevs.core.domain.models.AuthInfo
 import com.eggdevs.core.domain.util.DataError
 import com.eggdevs.core.domain.util.Result
 import com.eggdevs.core.presentation.ui.UiText
@@ -27,8 +24,7 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val authRepository: AuthRepository,
-    private val userDataValidator: UserDataValidator,
-    private val sessionStorage: SessionStorage
+    private val userDataValidator: UserDataValidator
 ): ViewModel() {
 
     var state by mutableStateOf(LoginState())
@@ -82,13 +78,6 @@ class LoginViewModel(
                     }
                 }
                 is Result.Success -> {
-                    sessionStorage.setInfo(
-                        AuthInfo(
-                            accessToken = result.data.accessToken ?: "",
-                            refreshToken = result.data.refreshToken ?: "",
-                            userId = result.data.userId ?: ""
-                        )
-                    )
                     loginEventChannel.send(LoginEvent.LoginSuccess)
                 }
             }

@@ -3,7 +3,7 @@ package com.eggdevs.auth.data.models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LoginResponseSerializable(
+data class LoginResponse(
     val accessToken: String?,
     val refreshToken: String?,
     val accessTokenExpirationTimestamp: Long?,

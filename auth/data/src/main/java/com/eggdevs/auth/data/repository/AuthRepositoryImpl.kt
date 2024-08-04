@@ -1,19 +1,21 @@
 package com.eggdevs.auth.data.repository
 
-import com.eggdevs.auth.data.models.LoginRequestSerializable
-import com.eggdevs.auth.data.models.LoginResponseSerializable
+import com.eggdevs.auth.data.models.LoginRequest
+import com.eggdevs.auth.data.models.LoginResponse
 import com.eggdevs.auth.data.models.RegisterRequest
-import com.eggdevs.auth.data.models.mappers.toLoginResponse
-import com.eggdevs.auth.domain.models.LoginResponse
 import com.eggdevs.auth.domain.repository.AuthRepository
 import com.eggdevs.core.data.networking.post
+import com.eggdevs.core.domain.SessionStorage
+import com.eggdevs.core.domain.models.AuthInfo
 import com.eggdevs.core.domain.util.DataError
 import com.eggdevs.core.domain.util.EmptyResult
 import com.eggdevs.core.domain.util.Result
+import com.eggdevs.core.domain.util.asEmptyDataResult
 import io.ktor.client.HttpClient
 
 class AuthRepositoryImpl(
-    private val httpClient: HttpClient
+    private val httpClient: HttpClient,
+    private val sessionStorage: SessionStorage
 ): AuthRepository {
     override suspend fun register(email: String, password: String): EmptyResult<DataError.Network> {
         return httpClient.post<RegisterRequest, Unit>(
@@ -25,23 +27,23 @@ class AuthRepositoryImpl(
         )
     }
 
-    override suspend fun login(email: String, password: String): Result<LoginResponse, DataError.Network> {
-        val response = httpClient.post<LoginRequestSerializable, LoginResponseSerializable>(
+    override suspend fun login(email: String, password: String): EmptyResult<DataError.Network> {
+        val response = httpClient.post<LoginRequest, LoginResponse>(
             route = "/login",
-            body = LoginRequestSerializable(
+            body = LoginRequest(
                 email = email,
                 password = password
             )
         )
-        return when(response) {
-            is Result.Error -> {
-                response
-            }
-            is Result.Success -> {
-                Result.Success(
-                    response.data.toLoginResponse()
+        if (response is Result.Success) {
+            sessionStorage.setInfo(
+                AuthInfo(
+                    accessToken = response.data.accessToken ?: "",
+                    refreshToken = response.data.refreshToken ?: "",
+                    userId = response.data.userId ?: ""
                 )
-            }
+            )
         }
+        return response.asEmptyDataResult()
     }
 }

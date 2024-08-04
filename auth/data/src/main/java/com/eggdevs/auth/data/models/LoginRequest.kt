@@ -3,7 +3,7 @@ package com.eggdevs.auth.data.models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LoginRequestSerializable(
+data class LoginRequest(
     val email: String,
     val password: String
 )
