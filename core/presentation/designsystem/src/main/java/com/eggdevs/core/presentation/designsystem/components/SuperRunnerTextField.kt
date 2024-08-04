@@ -5,7 +5,6 @@ package com.eggdevs.core.presentation.designsystem.components
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,9 +47,9 @@ import com.eggdevs.core.presentation.designsystem.SuperRunnerTheme
 @Composable
 fun SuperRunnerTextField(
     modifier: Modifier = Modifier,
-    state: TextFieldState,
-    startIcon: ImageVector?,
-    endIcon: ImageVector?,
+    state: TextFieldState = TextFieldState(),
+    startIcon: ImageVector? = null,
+    endIcon: ImageVector? = null,
     hint: String = "",
     title: String? = null,
     error: String? = null,

@@ -50,7 +50,7 @@ fun SuperRunnerPasswordTextField(
     modifier: Modifier = Modifier,
     isPasswordVisible: Boolean = false,
     onTogglePasswordVisibility: () -> Unit = {},
-    state: TextFieldState,
+    state: TextFieldState = TextFieldState(),
     hint: String = "",
     title: String? = null,
 ) {

@@ -44,6 +44,7 @@ import com.eggdevs.core.presentation.designsystem.SuperRunnerGray
 import com.eggdevs.core.presentation.designsystem.SuperRunnerGreen
 import com.eggdevs.core.presentation.designsystem.SuperRunnerTheme
 import com.eggdevs.core.presentation.designsystem.components.GradientBackground
+import com.eggdevs.core.presentation.designsystem.components.SucceedingClickableText
 import com.eggdevs.core.presentation.designsystem.components.SuperRunnerActionButton
 import com.eggdevs.core.presentation.designsystem.components.SuperRunnerPasswordTextField
 import com.eggdevs.core.presentation.designsystem.components.SuperRunnerTextField
@@ -82,7 +83,15 @@ fun RegisterScreenRoot(
 
     RegisterScreen(
         state = viewModel.state,
-        onAction = viewModel::onAction
+        onAction = { action ->
+            when (action) {
+                RegisterAction.OnLoginClick -> {
+                    onSignInClick()
+                }
+                else -> Unit
+            }
+            viewModel.onAction(action)
+        }
     )
 }
 
@@ -105,40 +114,11 @@ fun RegisterScreen(
                 style = MaterialTheme.typography.headlineMedium
             )
             // Clickable text for login starts
-            val annotatedString = buildAnnotatedString {
-                withStyle(
-                    style = SpanStyle(
-                        fontFamily = Poppins,
-                        color = SuperRunnerGray
-                    )
-                ) {
-                    append(stringResource(id = R.string.already_have_an_account))
-                    append(" ")
-                    pushStringAnnotation(
-                        tag = "clickable_text",
-                        annotation = "babu"
-                    )
-                    withStyle(
-                        style = SpanStyle(
-                            fontWeight = FontWeight.SemiBold,
-                            color = MaterialTheme.colorScheme.primary,
-                            fontFamily = Poppins
-                        )
-                    ) {
-                        append(stringResource(id = R.string.login))
-                    }
-                }
-            }
-            ClickableText(
-                text = annotatedString,
-                onClick = { offset ->
-                    annotatedString.getStringAnnotations(
-                        tag = "clickable_text",
-                        start = offset,
-                        end = offset
-                    ).firstOrNull()?.let {
-                        onAction(RegisterAction.OnLoginClick)
-                    }
+            SucceedingClickableText(
+                precedingText = stringResource(id = R.string.already_have_an_account),
+                succeedingClickableText = stringResource(id = R.string.login),
+                onClick = {
+                    onAction(RegisterAction.OnLoginClick)
                 }
             )
             // Clickable text for login ends

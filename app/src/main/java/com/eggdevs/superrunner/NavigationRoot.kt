@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.eggdevs.auth.presentation.intro.IntroScreenRoot
+import com.eggdevs.auth.presentation.login.LoginScreenRoot
 import com.eggdevs.auth.presentation.register.RegisterScreenRoot
 
 @Composable
@@ -34,10 +35,10 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
         composable(route = "intro") {
             IntroScreenRoot(
                 onSignInClick = {
-                    navController.navigate("register")
+                    navController.navigate("login")
                 },
                 onSignUpClick = {
-                    navController.navigate("login")
+                    navController.navigate("register")
                 }
             )
         }
@@ -60,9 +61,24 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
         }
 
         composable("login") {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = "Login")
-            }
+            LoginScreenRoot(
+                onLoginClick = {
+                    navController.navigate("run") {
+                        popUpTo("auth") {
+                            inclusive = true
+                        }
+                    }
+                },
+                onSignUpClick = {
+                    navController.navigate("register") {
+                        popUpTo("login") {
+                            inclusive = true
+                            saveState = true
+                        }
+                        restoreState = true
+                    }
+                }
+            )
         }
     }
 }
