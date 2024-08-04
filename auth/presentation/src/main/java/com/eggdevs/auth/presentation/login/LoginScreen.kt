@@ -133,7 +133,7 @@ fun LoginScreen(
                 },
                 isLoading = state.isLoggingIn,
                 modifier = Modifier.fillMaxWidth(),
-                enabled = state.canLogin
+                enabled = state.canLogin && !state.isLoggingIn
             )
             Box(
                 modifier = Modifier

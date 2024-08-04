@@ -182,7 +182,7 @@ fun RegisterScreen(
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(id = R.string.register),
                 isLoading = state.isRegistering,
-                enabled = state.canRegister,
+                enabled = state.canRegister && !state.isRegistering,
                 onClick = {
                     onAction(RegisterAction.OnRegisterClick)
                 }
