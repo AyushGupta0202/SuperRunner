@@ -10,7 +10,7 @@ fun AuthInfo.toAuthInfoSerializable() = AuthInfoSerializable(
 )
 
 fun AuthInfoSerializable.toAuthInfo() = AuthInfo(
-    accessToken = accessToken,
-    refreshToken = refreshToken,
-    userId = userId
+    accessToken = accessToken ?: "",
+    refreshToken = refreshToken ?: "",
+    userId = userId ?: ""
 )
