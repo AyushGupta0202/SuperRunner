@@ -1,11 +1,6 @@
 package com.eggdevs.superrunner
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -14,6 +9,7 @@ import androidx.navigation.navigation
 import com.eggdevs.auth.presentation.intro.IntroScreenRoot
 import com.eggdevs.auth.presentation.login.LoginScreenRoot
 import com.eggdevs.auth.presentation.register.RegisterScreenRoot
+import com.eggdevs.run.presentation.run_overview.RunOverviewScreenRoot
 
 @Composable
 fun NavigationRoot(
@@ -91,12 +87,7 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
         route = "run"
     ) {
         composable("run_overview") {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("Run Overview")
-            }
+            RunOverviewScreenRoot()
         }
     }
 }

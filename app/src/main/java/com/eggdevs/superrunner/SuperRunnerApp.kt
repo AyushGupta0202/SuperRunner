@@ -4,6 +4,7 @@ import android.app.Application
 import com.eggdevs.auth.data.di.authDataModule
 import com.eggdevs.auth.presentation.di.authViewModelModule
 import com.eggdevs.core.data.di.coreDataModule
+import com.eggdevs.run.presentation.di.runViewModelModule
 import com.eggdevs.superrunner.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -25,7 +26,8 @@ class SuperRunnerApp: Application() {
                 appModule,
                 authDataModule,
                 authViewModelModule,
-                coreDataModule
+                coreDataModule,
+                runViewModelModule
             )
         }
     }

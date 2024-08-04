@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="start_run">Start run</string>
+    <string name="super_runner">Super Runner</string>
+    <string name="logout">Logout</string>
+    <string name="analytics">Analytics</string>
+</resources>
