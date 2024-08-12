@@ -25,9 +25,9 @@ import com.eggdevs.core.presentation.designsystem.SuperRunnerTheme
 
 @Composable
 fun SuperRunnerActionButton(
+    modifier: Modifier = Modifier,
     text: String,
     isLoading: Boolean = false,
-    modifier: Modifier = Modifier,
     enabled: Boolean = true,
     onClick: () -> Unit = {}
 ) {
