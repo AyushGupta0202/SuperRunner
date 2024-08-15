@@ -83,4 +83,6 @@ dependencies {
     implementation(projects.run.location)
     implementation(projects.run.network)
 
+    implementation(projects.core.utils)
+
 }

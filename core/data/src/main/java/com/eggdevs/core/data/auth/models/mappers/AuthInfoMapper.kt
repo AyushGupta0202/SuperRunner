@@ -1,6 +1,6 @@
-package com.eggdevs.core.data.models.mappers
+package com.eggdevs.core.data.auth.models.mappers
 
-import com.eggdevs.core.data.models.AuthInfoSerializable
+import com.eggdevs.core.data.auth.models.AuthInfoSerializable
 import com.eggdevs.core.domain.models.AuthInfo
 
 fun AuthInfo.toAuthInfoSerializable() = AuthInfoSerializable(

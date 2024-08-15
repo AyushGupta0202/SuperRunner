@@ -1,8 +1,8 @@
 package com.eggdevs.core.data.networking
 
 import com.eggdevs.core.data.BuildConfig
-import com.eggdevs.core.data.models.AuthTokenRequest
-import com.eggdevs.core.data.models.AuthTokenResponse
+import com.eggdevs.core.data.auth.models.AuthTokenRequest
+import com.eggdevs.core.data.auth.models.AuthTokenResponse
 import com.eggdevs.core.domain.SessionStorage
 import com.eggdevs.core.domain.util.Result
 import io.ktor.client.HttpClient

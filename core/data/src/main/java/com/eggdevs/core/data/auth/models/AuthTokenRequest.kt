@@ -1,4 +1,4 @@
-package com.eggdevs.core.data.models
+package com.eggdevs.core.data.auth.models
 
 import kotlinx.serialization.Serializable
 

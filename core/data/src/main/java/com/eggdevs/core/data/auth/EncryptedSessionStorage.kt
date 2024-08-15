@@ -1,9 +1,9 @@
 package com.eggdevs.core.data.auth
 
 import android.content.SharedPreferences
-import com.eggdevs.core.data.models.AuthInfoSerializable
-import com.eggdevs.core.data.models.mappers.toAuthInfo
-import com.eggdevs.core.data.models.mappers.toAuthInfoSerializable
+import com.eggdevs.core.data.auth.models.AuthInfoSerializable
+import com.eggdevs.core.data.auth.models.mappers.toAuthInfo
+import com.eggdevs.core.data.auth.models.mappers.toAuthInfoSerializable
 import com.eggdevs.core.domain.SessionStorage
 import com.eggdevs.core.domain.models.AuthInfo
 import kotlinx.coroutines.Dispatchers
