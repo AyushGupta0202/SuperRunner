@@ -8,3 +8,11 @@ data class RunData(
     val pace: Duration = Duration.ZERO,
     val locations: List<List<LocationWithAltitudeTimestamp>> = emptyList(),
 )
+
+fun <T> List<List<T>>.replaceLast(replacement: List<T>): List<List<T>> {
+    return if (this.isEmpty()) {
+        listOf(replacement)
+    } else {
+        this.dropLast(1) + listOf(replacement)
+    }
+}
