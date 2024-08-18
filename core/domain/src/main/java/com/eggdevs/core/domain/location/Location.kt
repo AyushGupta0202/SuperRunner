@@ -9,9 +9,7 @@ data class Location(
     val lat: Double,
     val long: Double
 ) {
-    init {
-        println("data class init")
-    }
+
     fun distanceTo(other: Location): Float {
         val latDistance = Math.toRadians(other.lat - lat)
         val longDistance = Math.toRadians(other.long - long)
@@ -25,8 +23,5 @@ data class Location(
 
     companion object {
         private const val EARTH_RADIUS_METERS = 6_371_000
-        init {
-            println("companion object init")
-        }
     }
 }

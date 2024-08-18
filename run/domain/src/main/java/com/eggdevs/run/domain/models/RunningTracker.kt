@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combineTransform
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.filterNotNull
@@ -28,12 +29,12 @@ class RunningTracker(
     private val applicationScope: CoroutineScope
 ) {
     private val _runData = MutableStateFlow(RunData())
-    val runData get() = _runData
+    val runData get() = _runData.asStateFlow()
 
     private val isTracking = MutableStateFlow(false)
 
     private val _elapsedTime = MutableStateFlow(Duration.ZERO)
-    val elapsedTime get() = _elapsedTime
+    val elapsedTime get() = _elapsedTime.asStateFlow()
 
     private val isObservingLocation = MutableStateFlow(false)
 

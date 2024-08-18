@@ -16,9 +16,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,6 +37,7 @@ import com.eggdevs.core.presentation.ui.ObserveAsEvents
 import com.eggdevs.core.utils.isAtLeastAndroid13
 import com.eggdevs.run.presentation.R
 import com.eggdevs.run.presentation.active_run.components.RunDataCard
+import com.eggdevs.run.presentation.active_run.maps.TrackerMap
 import com.eggdevs.run.presentation.utils.hasLocationPermission
 import com.eggdevs.run.presentation.utils.hasNotificationPermission
 import com.eggdevs.run.presentation.utils.shouldShowLocationPermissionRationale
@@ -52,6 +55,7 @@ fun ActiveRunScreenRoot(
         }
     }
     ActiveRunScreen(
+        state = viewModel.state,
         onAction = { action ->
             when(action) {
 
@@ -100,6 +104,7 @@ fun ActiveRunScreen(
         val activity = context as Activity
         val showLocationRationale = activity.shouldShowLocationPermissionRationale()
         val showNotificationRationale = activity.shouldShowNotificationPermissionRationale()
+
         onAction(
             ActiveRunAction.SubmitLocationPermissionRationale(
                 acceptedLocationPermission = context.hasLocationPermission(),
@@ -117,13 +122,18 @@ fun ActiveRunScreen(
         }
     }
     SuperRunnerScaffold(
-        withGradient = true,
+        withGradient = false,
         topAppBar = {
             SuperRunnerToolbar(
                 modifier = Modifier.fillMaxWidth(),
                 title = stringResource(id = R.string.active_run),
                 showBackButton = true,
-                onBackClick = { onAction(ActiveRunAction.OnBackClick) }
+                onBackClick = {
+                    onAction(ActiveRunAction.OnBackClick)
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Transparent
+                )
             )
         },
         floatingActionButton = {
@@ -142,6 +152,16 @@ fun ActiveRunScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.surface)
         ) {
+            TrackerMap(
+                modifier = Modifier
+                    .fillMaxSize(),
+                isRunFinished = state.isRunFinished,
+                currentLocation = state.currentLocation,
+                locations = state.runData.locations,
+                onSnapshot = {
+
+                }
+            )
             RunDataCard(
                 elapsedTime = state.elapsedTime,
                 runData = state.runData,

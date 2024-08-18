@@ -81,6 +81,7 @@ class ActiveRunViewModel(
             .onEach { elapsedTime ->
                 state = state.copy(elapsedTime = elapsedTime)
             }
+            .launchIn(viewModelScope)
     }
 
     fun onAction(action: ActiveRunAction) {
