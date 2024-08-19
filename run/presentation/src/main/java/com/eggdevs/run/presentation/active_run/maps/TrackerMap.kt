@@ -89,6 +89,8 @@ fun TrackerMap(
             compassEnabled = true
         )
     ) {
+        SuperRunnerPolylines(locations = locations)
+
         if (!isRunFinished && currentLocation != null) {
             MarkerComposable(
                 currentLocation,

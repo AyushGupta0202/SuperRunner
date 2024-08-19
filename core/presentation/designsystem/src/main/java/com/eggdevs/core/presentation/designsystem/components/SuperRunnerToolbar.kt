@@ -130,9 +130,7 @@ fun SuperRunnerToolbar(
 
 @Preview
 @Composable
-fun SuperRunnerToolbarPreview(
-    modifier: Modifier = Modifier
-) {
+fun SuperRunnerToolbarPreview() {
     SuperRunnerTheme {
         SuperRunnerToolbar(
             title = "SuperRunner",
