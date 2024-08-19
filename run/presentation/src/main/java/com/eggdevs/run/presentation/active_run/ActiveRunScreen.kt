@@ -5,6 +5,7 @@ package com.eggdevs.run.presentation.active_run
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.eggdevs.core.presentation.designsystem.StartIcon
 import com.eggdevs.core.presentation.designsystem.StopIcon
 import com.eggdevs.core.presentation.designsystem.SuperRunnerTheme
+import com.eggdevs.core.presentation.designsystem.components.SuperRunnerActionButton
 import com.eggdevs.core.presentation.designsystem.components.SuperRunnerDialog
 import com.eggdevs.core.presentation.designsystem.components.SuperRunnerFloatingActionButton
 import com.eggdevs.core.presentation.designsystem.components.SuperRunnerOutlinedActionButton
@@ -121,6 +123,7 @@ fun ActiveRunScreen(
             permissionLauncher.requestRunPermissions(context)
         }
     }
+
     SuperRunnerScaffold(
         withGradient = false,
         topAppBar = {
@@ -168,8 +171,40 @@ fun ActiveRunScreen(
                 modifier = Modifier
                     .padding(16.dp)
                     .padding(paddingValues)
+                    .fillMaxWidth()
             )
         }
+    }
+
+    if (!state.shouldTrack && state.hasStartedRunning && !state.isRunFinished) {
+        SuperRunnerDialog(
+            title = stringResource(id = R.string.running_is_paused),
+            description = stringResource(id = R.string.resume_or_finish_run),
+            onDismissDialog = {
+                onAction(ActiveRunAction.OnResumeRunClick)
+            },
+            primaryContent = {
+                SuperRunnerActionButton(
+                    text = stringResource(id = R.string.resume),
+                    isLoading = false,
+                    modifier = Modifier.weight(1f),
+                    onClick = {
+                        onAction(ActiveRunAction.OnResumeRunClick)
+                    }
+                )
+            },
+            secondaryContent = {
+                SuperRunnerOutlinedActionButton(
+                    text = stringResource(id = R.string.finish),
+                    modifier = Modifier.weight(1f),
+                    isLoading = state.isSavingRun,
+                    onClick = {
+                        Toast.makeText(context, "run finished", Toast.LENGTH_SHORT).show()
+                        onAction(ActiveRunAction.OnFinishRunClick)
+                    }
+                )
+            }
+        )
     }
 
     if (state.showLocationRationale || state.showNotificationRationale) {

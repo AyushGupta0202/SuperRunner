@@ -5,9 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -29,8 +29,8 @@ fun SuperRunnerDialog(
     title: String,
     description: String,
     onDismissDialog: () -> Unit = {},
-    primaryContent: @Composable () -> Unit = {},
-    secondaryContent: @Composable () -> Unit = {}
+    primaryContent: @Composable RowScope.() -> Unit = {},
+    secondaryContent: @Composable RowScope.() -> Unit = {}
 ) {
     Dialog(
         onDismissRequest = { onDismissDialog() },
@@ -76,10 +76,10 @@ private fun SuperRunnerDialogPrev() {
             title = "title",
             description = "des",
             primaryContent = {
-                SuperRunnerActionButton(text = "Okay", modifier = Modifier.width(100.dp))
+                SuperRunnerActionButton(text = "Okay", modifier = Modifier.weight(1f))
             },
             secondaryContent = {
-                SuperRunnerOutlinedActionButton(text = "Cancel", modifier = Modifier.width(100.dp))
+                SuperRunnerOutlinedActionButton(text = "Cancel", modifier = Modifier.weight(1f))
             }
         )
     }
