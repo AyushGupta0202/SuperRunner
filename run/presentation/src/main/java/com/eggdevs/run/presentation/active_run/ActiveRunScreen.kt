@@ -40,6 +40,7 @@ import com.eggdevs.core.utils.isAtLeastAndroid13
 import com.eggdevs.run.presentation.R
 import com.eggdevs.run.presentation.active_run.components.RunDataCard
 import com.eggdevs.run.presentation.active_run.maps.TrackerMap
+import com.eggdevs.run.presentation.active_run.service.ActiveRunService
 import com.eggdevs.run.presentation.utils.hasLocationPermission
 import com.eggdevs.run.presentation.utils.hasNotificationPermission
 import com.eggdevs.run.presentation.utils.shouldShowLocationPermissionRationale
@@ -48,7 +49,8 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ActiveRunScreenRoot(
-    viewModel: ActiveRunViewModel = koinViewModel()
+    viewModel: ActiveRunViewModel = koinViewModel(),
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit = {}
 ) {
     ObserveAsEvents(viewModel.activeRunEvents) { event ->
         when(event) {
@@ -58,6 +60,7 @@ fun ActiveRunScreenRoot(
     }
     ActiveRunScreen(
         state = viewModel.state,
+        onServiceToggle = onServiceToggle,
         onAction = { action ->
             when(action) {
 
@@ -71,6 +74,7 @@ fun ActiveRunScreenRoot(
 @Composable
 fun ActiveRunScreen(
     state: ActiveRunState = ActiveRunState(),
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit = {},
     onAction: (ActiveRunAction) -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -121,6 +125,18 @@ fun ActiveRunScreen(
         )
         if (!showLocationRationale && !showNotificationRationale) {
             permissionLauncher.requestRunPermissions(context)
+        }
+    }
+
+    LaunchedEffect(key1 = state.shouldTrack) {
+        if (context.hasLocationPermission() && state.shouldTrack && !ActiveRunService.isServiceActive) {
+            onServiceToggle(true)
+        }
+    }
+
+    LaunchedEffect(key1 = state.isRunFinished) {
+        if (state.isRunFinished) {
+            onServiceToggle(false)
         }
     }
 
