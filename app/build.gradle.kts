@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.superrunner.android.application.compose)
     alias(libs.plugins.superrunner.jvm.ktor)
-    alias(libs.plugins.mapsplatform.secrets.plugin)
 }
 
 android {
