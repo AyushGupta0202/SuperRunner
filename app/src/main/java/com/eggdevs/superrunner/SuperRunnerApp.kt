@@ -4,6 +4,7 @@ import android.app.Application
 import com.eggdevs.auth.data.di.authDataModule
 import com.eggdevs.auth.presentation.di.authViewModelModule
 import com.eggdevs.core.data.di.coreDataModule
+import com.eggdevs.core.database.di.databaseModule
 import com.eggdevs.core.utils.di.utilsModule
 import com.eggdevs.run.location.di.locationModule
 import com.eggdevs.run.presentation.di.runPresentationModule
@@ -35,7 +36,8 @@ class SuperRunnerApp: Application() {
                 coreDataModule,
                 runPresentationModule,
                 locationModule,
-                utilsModule
+                utilsModule,
+                databaseModule
             )
         }
     }
