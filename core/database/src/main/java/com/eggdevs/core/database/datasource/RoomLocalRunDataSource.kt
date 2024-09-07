@@ -6,8 +6,8 @@ import com.eggdevs.core.database.mappers.toRunEntities
 import com.eggdevs.core.database.mappers.toRunEntity
 import com.eggdevs.core.database.mappers.toRuns
 import com.eggdevs.core.domain.run.Run
-import com.eggdevs.core.domain.run.datasource.LocalRunDataSource
-import com.eggdevs.core.domain.run.datasource.RunId
+import com.eggdevs.core.domain.run.datasource.local.LocalRunDataSource
+import com.eggdevs.core.domain.run.datasource.local.RunId
 import com.eggdevs.core.domain.util.DataError
 import com.eggdevs.core.domain.util.Result
 import kotlinx.coroutines.flow.Flow

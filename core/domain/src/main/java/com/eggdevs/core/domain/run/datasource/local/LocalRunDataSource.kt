@@ -1,4 +1,4 @@
-package com.eggdevs.core.domain.run.datasource
+package com.eggdevs.core.domain.run.datasource.local
 
 import com.eggdevs.core.domain.run.Run
 import com.eggdevs.core.domain.util.DataError

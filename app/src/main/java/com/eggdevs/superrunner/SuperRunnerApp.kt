@@ -7,6 +7,7 @@ import com.eggdevs.core.data.di.coreDataModule
 import com.eggdevs.core.database.di.databaseModule
 import com.eggdevs.core.utils.di.utilsModule
 import com.eggdevs.run.location.di.locationModule
+import com.eggdevs.run.network.di.networkModule
 import com.eggdevs.run.presentation.di.runPresentationModule
 import com.eggdevs.superrunner.di.appModule
 import kotlinx.coroutines.CoroutineScope
@@ -37,7 +38,8 @@ class SuperRunnerApp: Application() {
                 runPresentationModule,
                 locationModule,
                 utilsModule,
-                databaseModule
+                databaseModule,
+                networkModule
             )
         }
     }
