@@ -138,6 +138,16 @@ class RunningTracker(
     fun stopTracking() {
         _isTracking.value = false
     }
+
+    /** This is a shared singleton state. We have to make sure
+    * to clear the state when the run is finished.
+    */
+    fun finishRun() {
+        stopObservingLocation()
+        stopTracking()
+        _elapsedTime.value = Duration.ZERO
+        _runData.value = RunData()
+    }
 }
 
 fun main() {

@@ -5,6 +5,7 @@ package com.eggdevs.run.presentation.active_run
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.graphics.Bitmap
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -46,6 +47,7 @@ import com.eggdevs.run.presentation.utils.hasNotificationPermission
 import com.eggdevs.run.presentation.utils.shouldShowLocationPermissionRationale
 import com.eggdevs.run.presentation.utils.shouldShowNotificationPermissionRationale
 import org.koin.androidx.compose.koinViewModel
+import java.io.ByteArrayOutputStream
 
 @Composable
 fun ActiveRunScreenRoot(
@@ -177,8 +179,18 @@ fun ActiveRunScreen(
                 isRunFinished = state.isRunFinished,
                 currentLocation = state.currentLocation,
                 locations = state.runData.locations,
-                onSnapshot = {
-
+                onSnapshot = { bitmap ->
+                    // TODO: check thread here
+                    // TODO: make OnRunProcessed have a bitmap rather than byte array and do this in the viewmodel
+                    val stream = ByteArrayOutputStream()
+                    stream.use { 
+                        bitmap.compress(
+                            Bitmap.CompressFormat.JPEG,
+                            80,
+                            it
+                        )
+                    }
+                    onAction(ActiveRunAction.OnRunProcessed(stream.toByteArray()))
                 }
             )
             RunDataCard(

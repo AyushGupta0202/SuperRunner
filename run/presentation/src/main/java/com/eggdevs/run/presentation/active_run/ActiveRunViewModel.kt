@@ -6,6 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eggdevs.core.domain.location.Location
+import com.eggdevs.core.domain.run.Run
+import com.eggdevs.run.domain.models.LocationDataCalculator
 import com.eggdevs.run.domain.models.RunningTracker
 import com.eggdevs.run.presentation.active_run.service.ActiveRunService
 import kotlinx.coroutines.channels.Channel
@@ -16,6 +19,9 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 class ActiveRunViewModel(
     private val runningTracker: RunningTracker
@@ -104,7 +110,8 @@ class ActiveRunViewModel(
             ActiveRunAction.OnFinishRunClick -> {
                 state = state.copy(
                     shouldTrack = false,
-                    isRunFinished = true
+                    isRunFinished = true,
+                    isSavingRun = true
                 )
             }
             ActiveRunAction.OnResumeRunClick -> {
@@ -129,7 +136,39 @@ class ActiveRunViewModel(
                     showNotificationRationale = action.showNotificationRationale
                 )
             }
+            is ActiveRunAction.OnRunProcessed -> {
+                finishRun(action.mapPictureBytes)
+            }
             else -> Unit
+        }
+    }
+
+    private fun finishRun(mapPictureBytes: ByteArray) {
+        val locations = state.runData.locations
+        // TODO: we can apply this check in tracker map itself
+        if (locations.isEmpty() || locations.first().size <= 1) {
+            state = state.copy(
+                isSavingRun = false
+            )
+            return
+        }
+        viewModelScope.launch {
+            val run = Run(
+                id = null,
+                distanceMeters = state.runData.distanceMeters,
+                duration = state.elapsedTime,
+                maxSpeedKmh = LocationDataCalculator.getMaxSpeedKmh(locations),
+                mapPictureUrl = null,
+                location = state.currentLocation ?: Location(0.0, 0.0),
+                dateTimeUtc = ZonedDateTime.now()
+                    .withZoneSameInstant(ZoneId.of("UTC")),
+                totalElevationMeters = LocationDataCalculator.getTotalElevationMeters(locations)
+            )
+            // save run and send bytes to repository
+            runningTracker.finishRun()
+            state = state.copy(
+                isSavingRun = false
+            )
         }
     }
 
