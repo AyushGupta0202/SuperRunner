@@ -31,7 +31,7 @@ object LocationDataCalculator {
                     } else {
                         (distanceMeters / 1000.0) / timeHours
                     }
-                }.max()
+                }.maxOrNull() ?: 0.0
             }
     }
 

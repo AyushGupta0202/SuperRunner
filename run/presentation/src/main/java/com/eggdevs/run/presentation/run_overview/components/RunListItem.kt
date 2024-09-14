@@ -72,6 +72,7 @@ fun RunListItem(
         Column(
             modifier = modifier
                 .clip(RoundedCornerShape(15.dp))
+                .background(MaterialTheme.colorScheme.surface)
                 .combinedClickable(
                     onClick = {},
                     onLongClick = {

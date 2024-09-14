@@ -7,6 +7,7 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -51,13 +52,24 @@ import java.io.ByteArrayOutputStream
 
 @Composable
 fun ActiveRunScreenRoot(
+    onRunFinished: () -> Unit = {},
+    onBack: () -> Unit = {},
     viewModel: ActiveRunViewModel = koinViewModel(),
     onServiceToggle: (isServiceRunning: Boolean) -> Unit = {}
 ) {
+    val context = LocalContext.current
     ObserveAsEvents(viewModel.activeRunEvents) { event ->
         when(event) {
-            is ActiveRunEvent.Error -> TODO()
-            ActiveRunEvent.RunSaved -> TODO()
+            is ActiveRunEvent.Error -> {
+                Toast.makeText(
+                    context,
+                    event.error.asString(context),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            ActiveRunEvent.RunSaved -> {
+                onRunFinished()
+            }
         }
     }
     ActiveRunScreen(
@@ -65,7 +77,11 @@ fun ActiveRunScreenRoot(
         onServiceToggle = onServiceToggle,
         onAction = { action ->
             when(action) {
-
+                ActiveRunAction.OnBackClick -> {
+                    if (!viewModel.state.hasStartedRunning) {
+                        onBack()
+                    }
+                }
                 else -> Unit
             }
             viewModel.onAction(action)
@@ -142,6 +158,12 @@ fun ActiveRunScreen(
         }
     }
 
+    BackHandler {
+        if (state.hasStartedRunning && !state.isRunFinished) {
+            onAction(ActiveRunAction.OnBackClick)
+        }
+    }
+
     SuperRunnerScaffold(
         withGradient = false,
         topAppBar = {
@@ -183,7 +205,7 @@ fun ActiveRunScreen(
                     // TODO: check thread here
                     // TODO: make OnRunProcessed have a bitmap rather than byte array and do this in the viewmodel
                     val stream = ByteArrayOutputStream()
-                    stream.use { 
+                    stream.use {
                         bitmap.compress(
                             Bitmap.CompressFormat.JPEG,
                             80,
@@ -204,7 +226,7 @@ fun ActiveRunScreen(
         }
     }
 
-    if (!state.shouldTrack && state.hasStartedRunning && !state.isRunFinished) {
+    if (!state.shouldTrack && state.hasStartedRunning) {
         SuperRunnerDialog(
             title = stringResource(id = R.string.running_is_paused),
             description = stringResource(id = R.string.resume_or_finish_run),

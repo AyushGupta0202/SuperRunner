@@ -8,6 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eggdevs.core.domain.location.Location
 import com.eggdevs.core.domain.run.Run
+import com.eggdevs.core.domain.run.repository.RunRepository
+import com.eggdevs.core.domain.util.Result
+import com.eggdevs.core.presentation.ui.asUiText
 import com.eggdevs.run.domain.models.LocationDataCalculator
 import com.eggdevs.run.domain.models.RunningTracker
 import com.eggdevs.run.presentation.active_run.service.ActiveRunService
@@ -24,13 +27,16 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 
 class ActiveRunViewModel(
-    private val runningTracker: RunningTracker
+    private val runningTracker: RunningTracker,
+    private val runRepository: RunRepository
 ): ViewModel() {
 
-    var state by mutableStateOf(ActiveRunState(
-        shouldTrack = ActiveRunService.isServiceActive && runningTracker.isTracking.value,
-        hasStartedRunning = ActiveRunService.isServiceActive
-    ))
+    var state by mutableStateOf(
+        value = ActiveRunState(
+            shouldTrack = ActiveRunService.isServiceActive && runningTracker.isTracking.value,
+            hasStartedRunning = ActiveRunService.isServiceActive
+        )
+    )
         private set
 
     private val activeRunEventChannel = Channel<ActiveRunEvent>()
@@ -109,7 +115,7 @@ class ActiveRunViewModel(
             }
             ActiveRunAction.OnFinishRunClick -> {
                 state = state.copy(
-                    shouldTrack = false,
+//                    shouldTrack = false,
                     isRunFinished = true,
                     isSavingRun = true
                 )
@@ -164,8 +170,18 @@ class ActiveRunViewModel(
                     .withZoneSameInstant(ZoneId.of("UTC")),
                 totalElevationMeters = LocationDataCalculator.getTotalElevationMeters(locations)
             )
-            // save run and send bytes to repository
             runningTracker.finishRun()
+
+            // save run and send bytes to repository
+            when (val result = runRepository.upsertRun(run, mapPictureBytes)) {
+                is Result.Error -> {
+                    activeRunEventChannel.send(ActiveRunEvent.Error(result.error.asUiText()))
+                }
+                is Result.Success -> {
+                    activeRunEventChannel.send(ActiveRunEvent.RunSaved)
+                }
+            }
+
             state = state.copy(
                 isSavingRun = false
             )

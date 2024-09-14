@@ -29,3 +29,5 @@ fun Run.toRunUi(): RunUi {
         mapPictureUrl = mapPictureUrl
     )
 }
+
+fun List<Run>.toRunUIs(): List<RunUi> = map { it.toRunUi() }
