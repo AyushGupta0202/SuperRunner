@@ -1,5 +1,9 @@
 package com.eggdevs.core.data.run
 
+import com.eggdevs.core.database.dao.DeletedRunPendingSyncDao
+import com.eggdevs.core.database.dao.RunPendingSyncDao
+import com.eggdevs.core.database.mappers.toRun
+import com.eggdevs.core.domain.SessionStorage
 import com.eggdevs.core.domain.run.Run
 import com.eggdevs.core.domain.run.datasource.local.LocalRunDataSource
 import com.eggdevs.core.domain.run.datasource.local.RunId
@@ -10,12 +14,23 @@ import com.eggdevs.core.domain.util.EmptyResult
 import com.eggdevs.core.domain.util.Result
 import com.eggdevs.core.domain.util.asEmptyDataResult
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
+import kotlin.system.measureTimeMillis
 
 class OfflineFirstRunRepository(
     private val localRunDataSource: LocalRunDataSource,
     private val remoteRunDataSource: RemoteRunDataSource,
+    private val runPendingSyncDao: RunPendingSyncDao,
+    private val deletedRunPendingSyncDao: DeletedRunPendingSyncDao,
+    private val sessionStorage: SessionStorage,
     private val applicationScope: CoroutineScope // need a different scope than these methods will run in (probably viewmodelscope) as we don't want to cancel the operations when the viewmodel is cleared
 ) : RunRepository {
     override fun getRuns(): Flow<List<Run>> {
@@ -56,8 +71,108 @@ class OfflineFirstRunRepository(
     override suspend fun deleteRun(id: RunId) {
         localRunDataSource.deleteRun(id)
 
+        // Edge case where the run is created in offline-mode,
+        // and then deleted in the offline-mode as well. In that case,
+        // we don't need to sync anything.
+        val isPendingSync = runPendingSyncDao.getRunPendingSyncEntity(id) != null
+        if (isPendingSync) {
+            runPendingSyncDao.deleteRunPendingSyncEntity(id)
+            return
+        }
+
         val remoteResult = applicationScope.async {
             remoteRunDataSource.deleteRun(id)
         }.await()
     }
+
+    override suspend fun syncPendingRuns() {
+        withContext(Dispatchers.IO) {
+            val userId = sessionStorage.getInfo()?.userId ?: return@withContext
+
+            val createdRuns = async {
+                runPendingSyncDao.getAllRunPendingSyncEntities(userId)
+            }
+            val deletedRuns = async {
+                deletedRunPendingSyncDao.getAllDeletedRunPendingSyncEntities(userId)
+            }
+
+            val createdRunJob = createdRuns
+                .await()
+                .map { runPendingSyncEntity ->
+                    launch {
+                        val run = runPendingSyncEntity.run.toRun()
+                        when(remoteRunDataSource.postRun(run, runPendingSyncEntity.mapPictureBytes)) {
+                            is Result.Error -> Unit
+                            is Result.Success -> {
+                                applicationScope.launch {
+                                    runPendingSyncDao.deleteRunPendingSyncEntity(runPendingSyncEntity.runId)
+                                }.join()
+                            }
+                        }
+                    }
+                }
+
+            val deletedRunJob = deletedRuns
+                .await()
+                .map { deletedRunPendingSyncEntity ->
+                    launch {
+                        when(remoteRunDataSource.deleteRun(deletedRunPendingSyncEntity.runId)) {
+                            is Result.Error -> Unit
+                            is Result.Success -> {
+                                applicationScope.launch {
+                                    deletedRunPendingSyncDao.deleteDeletedRunPendingSyncEntity(deletedRunPendingSyncEntity.runId)
+                                }.join()
+                            }
+                        }
+                    }
+                }
+            createdRunJob.joinAll()
+            deletedRunJob.joinAll()
+        }
+    }
+}
+
+fun main() = runBlocking{
+//    val list = listOf(3, 2, 1)
+//    val timeInMillisLaunch = measureTimeMillis {
+//        val jobs = list.map {
+//            launch {
+//                delay(it * 1000L)
+//                launch {
+//                    delay(it * 1000L)
+//                    println(it)
+//                }.join()
+//            }
+//        }
+//        jobs.joinAll()
+//    }
+//    println("launchtime: $timeInMillisLaunch")
+//
+//    val timeInMillisAsync = measureTimeMillis {
+//        val jobs = list.map {
+//            async {
+//                delay(it * 1000L)
+//                async {
+//                    delay(it * 1000L)
+//                    println(it)
+//                }.await()
+//            }
+//        }
+//        jobs.awaitAll()
+//    }
+//    println("launchtime: $timeInMillisAsync")
+
+    val async1 = async {
+//        delay(1000L)
+        println("async 1")
+        "value1"
+    }
+    val async2 = async {
+//        delay(1000L)
+        println("async 2")
+        "value2"
+    }
+    delay(2000L)
+    println("async1: ${async1.await()}")
+    println("async2: ${async2.await()}")
 }
