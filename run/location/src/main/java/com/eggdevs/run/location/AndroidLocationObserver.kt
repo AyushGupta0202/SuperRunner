@@ -8,7 +8,7 @@ import android.os.Looper
 import androidx.core.app.ActivityCompat
 import androidx.core.content.getSystemService
 import com.eggdevs.core.domain.location.LocationWithAltitude
-import com.eggdevs.run.domain.models.LocationObserver
+import com.eggdevs.run.domain.LocationObserver
 import com.eggdevs.run.location.mappers.toLocationWithAltitude
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest

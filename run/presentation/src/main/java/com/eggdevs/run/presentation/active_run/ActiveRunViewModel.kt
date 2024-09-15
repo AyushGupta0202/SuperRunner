@@ -11,8 +11,8 @@ import com.eggdevs.core.domain.run.Run
 import com.eggdevs.core.domain.run.repository.RunRepository
 import com.eggdevs.core.domain.util.Result
 import com.eggdevs.core.presentation.ui.asUiText
-import com.eggdevs.run.domain.models.LocationDataCalculator
-import com.eggdevs.run.domain.models.RunningTracker
+import com.eggdevs.run.domain.LocationDataCalculator
+import com.eggdevs.run.domain.RunningTracker
 import com.eggdevs.run.presentation.active_run.service.ActiveRunService
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow

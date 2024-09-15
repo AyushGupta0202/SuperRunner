@@ -14,7 +14,7 @@ import androidx.core.content.getSystemService
 import androidx.core.net.toUri
 import com.eggdevs.core.presentation.designsystem.R
 import com.eggdevs.core.presentation.ui.formatted
-import com.eggdevs.run.domain.models.RunningTracker
+import com.eggdevs.run.domain.RunningTracker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
