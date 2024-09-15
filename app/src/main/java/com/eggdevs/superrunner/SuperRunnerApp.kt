@@ -6,6 +6,7 @@ import com.eggdevs.auth.presentation.di.authViewModelModule
 import com.eggdevs.core.data.di.coreDataModule
 import com.eggdevs.core.database.di.databaseModule
 import com.eggdevs.core.utils.di.utilsModule
+import com.eggdevs.run.data.di.runDataModule
 import com.eggdevs.run.location.di.locationModule
 import com.eggdevs.run.network.di.networkModule
 import com.eggdevs.run.presentation.di.runPresentationModule
@@ -14,6 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
@@ -30,6 +32,7 @@ class SuperRunnerApp: Application() {
         startKoin {
             androidLogger()
             androidContext(this@SuperRunnerApp)
+            workManagerFactory()
             modules(
                 appModule,
                 authDataModule,
@@ -39,7 +42,8 @@ class SuperRunnerApp: Application() {
                 locationModule,
                 utilsModule,
                 databaseModule,
-                networkModule
+                networkModule,
+                runDataModule
             )
         }
     }
