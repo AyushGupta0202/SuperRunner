@@ -5,6 +5,7 @@ import com.eggdevs.core.database.dao.RunPendingSyncDao
 import com.eggdevs.core.database.mappers.toRun
 import com.eggdevs.core.domain.SessionStorage
 import com.eggdevs.core.domain.run.Run
+import com.eggdevs.core.domain.run.SyncRunScheduler
 import com.eggdevs.core.domain.run.datasource.local.LocalRunDataSource
 import com.eggdevs.core.domain.run.datasource.local.RunId
 import com.eggdevs.core.domain.run.datasource.remote.RemoteRunDataSource
@@ -31,6 +32,7 @@ class OfflineFirstRunRepository(
     private val runPendingSyncDao: RunPendingSyncDao,
     private val deletedRunPendingSyncDao: DeletedRunPendingSyncDao,
     private val sessionStorage: SessionStorage,
+    private val syncRunScheduler: SyncRunScheduler,
     private val applicationScope: CoroutineScope // need a different scope than these methods will run in (probably viewmodelscope) as we don't want to cancel the operations when the viewmodel is cleared
 ) : RunRepository {
     override fun getRuns(): Flow<List<Run>> {
@@ -57,7 +59,17 @@ class OfflineFirstRunRepository(
                 // Sync it with the backend after insertion in the Local DB is success
                 val runWithId = run.copy(id = localResult.data)
                 when (val remoteResult = remoteRunDataSource.postRun(run = runWithId, mapPicture = mapPicture)) {
-                    is Result.Error -> Result.Success(Unit) //TODO: to handle later
+                    is Result.Error -> {
+                        applicationScope.launch {
+                            syncRunScheduler.scheduleSync(
+                                    type = SyncRunScheduler.SyncType.CreateRun(
+                                        run = runWithId,
+                                        mapPictureBytes = mapPicture
+                                    )
+                                )
+                        }.join()
+                        Result.Success(Unit)
+                    }
                     is Result.Success -> {
                         applicationScope.async {
                             localRunDataSource.upsertRun(remoteResult.data).asEmptyDataResult()
@@ -83,6 +95,14 @@ class OfflineFirstRunRepository(
         val remoteResult = applicationScope.async {
             remoteRunDataSource.deleteRun(id)
         }.await()
+
+        if (remoteResult is Result.Error) {
+            applicationScope.launch {
+                syncRunScheduler.scheduleSync(
+                        type = SyncRunScheduler.SyncType.DeleteRun(id)
+                    )
+            }.join()
+        }
     }
 
     override suspend fun syncPendingRuns() {
