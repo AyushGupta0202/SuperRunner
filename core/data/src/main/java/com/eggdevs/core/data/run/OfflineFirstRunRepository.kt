@@ -1,5 +1,6 @@
 package com.eggdevs.core.data.run
 
+import com.eggdevs.core.data.networking.get
 import com.eggdevs.core.database.dao.DeletedRunPendingSyncDao
 import com.eggdevs.core.database.dao.RunPendingSyncDao
 import com.eggdevs.core.database.mappers.toRun
@@ -14,6 +15,10 @@ import com.eggdevs.core.domain.util.DataError
 import com.eggdevs.core.domain.util.EmptyResult
 import com.eggdevs.core.domain.util.Result
 import com.eggdevs.core.domain.util.asEmptyDataResult
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.providers.BearerAuthProvider
+import io.ktor.client.plugins.plugin
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -33,6 +38,7 @@ class OfflineFirstRunRepository(
     private val deletedRunPendingSyncDao: DeletedRunPendingSyncDao,
     private val sessionStorage: SessionStorage,
     private val syncRunScheduler: SyncRunScheduler,
+    private val httpClient: HttpClient,
     private val applicationScope: CoroutineScope // need a different scope than these methods will run in (probably viewmodelscope) as we don't want to cancel the operations when the viewmodel is cleared
 ) : RunRepository {
     override fun getRuns(): Flow<List<Run>> {
@@ -149,6 +155,22 @@ class OfflineFirstRunRepository(
             createdRunJob.joinAll()
             deletedRunJob.joinAll()
         }
+    }
+
+    override suspend fun deleteAllRuns() {
+        localRunDataSource.deleteAllRuns()
+    }
+
+    override suspend fun logout(): EmptyResult<DataError.Network> {
+        val result = httpClient.get<Unit>(
+            route = "/logout"
+        ).asEmptyDataResult()
+
+        httpClient.plugin(Auth).providers.filterIsInstance<BearerAuthProvider>()
+            .firstOrNull()
+            ?.clearToken()
+
+        return result
     }
 }
 
