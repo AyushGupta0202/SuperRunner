@@ -40,3 +40,7 @@ include(":run:network")
 include(":core:utils")
 
 gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))
+include(":analytics:data")
+include(":analytics:domain")
+include(":analytics:presentation")
+include(":analytics:analytics-feature")
