@@ -1,5 +1,6 @@
 package com.eggdevs.run.data.di
 
+import androidx.work.WorkManager
 import com.eggdevs.core.domain.run.SyncRunScheduler
 import com.eggdevs.run.data.workers.CreateRunWorker
 import com.eggdevs.run.data.workers.DeleteRunWorker
@@ -11,6 +12,9 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val runDataModule = module {
+    single {
+        WorkManager.getInstance(get())
+    }
     workerOf(::FetchRunsWorker)
     workerOf(::DeleteRunWorker)
     workerOf(::CreateRunWorker)

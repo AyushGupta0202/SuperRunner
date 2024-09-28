@@ -84,8 +84,8 @@ fun RunOverviewScreen(
                 ),
                 onMenuItemClick = {
                     when(it) {
+                        0 -> onAction(RunOverviewAction.OnAnalyticsClick)
                         1 -> onAction(RunOverviewAction.OnLogoutClick)
-                        2 -> onAction(RunOverviewAction.OnAnalyticsClick)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(

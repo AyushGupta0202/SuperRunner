@@ -75,6 +75,7 @@ fun ActiveRunScreenRoot(
     ActiveRunScreen(
         state = viewModel.state,
         onServiceToggle = onServiceToggle,
+        onBack = onBack,
         onAction = { action ->
             when(action) {
                 ActiveRunAction.OnBackClick -> {
@@ -93,6 +94,7 @@ fun ActiveRunScreenRoot(
 fun ActiveRunScreen(
     state: ActiveRunState = ActiveRunState(),
     onServiceToggle: (isServiceRunning: Boolean) -> Unit = {},
+    onBack: () -> Unit = {},
     onAction: (ActiveRunAction) -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -161,6 +163,8 @@ fun ActiveRunScreen(
     BackHandler {
         if (state.hasStartedRunning && !state.isRunFinished) {
             onAction(ActiveRunAction.OnBackClick)
+        } else {
+            onBack()
         }
     }
 

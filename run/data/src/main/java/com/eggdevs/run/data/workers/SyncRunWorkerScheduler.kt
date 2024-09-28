@@ -26,8 +26,7 @@ import kotlin.time.Duration
 import kotlin.time.toJavaDuration
 
 class SyncRunWorkerScheduler(
-    private val context: Context,
-    private val workManager: WorkManager = WorkManager.getInstance(context),
+    private val workManager: WorkManager,
     private val sessionStorage: SessionStorage,
     private val runPendingSyncDao: RunPendingSyncDao,
     private val deletedRunPendingSyncDao: DeletedRunPendingSyncDao,
