@@ -12,7 +12,7 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(projects.core.utils)
+    api(projects.core.utils)
     debugImplementation(libs.androidx.ui.tooling)
     api(libs.androidx.material3)
 }

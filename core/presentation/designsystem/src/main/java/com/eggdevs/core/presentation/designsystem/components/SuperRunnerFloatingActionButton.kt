@@ -28,7 +28,7 @@ fun SuperRunnerFloatingActionButton(
     onClick: () -> Unit = {}
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(75.dp)
             .clip(CircleShape)
             .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.3f))
@@ -55,9 +55,7 @@ fun SuperRunnerFloatingActionButton(
 
 @Preview
 @Composable
-fun SuperRunnerFloatingActionButtonPreview(
-    modifier: Modifier = Modifier
-) {
+fun SuperRunnerFloatingActionButtonPreview() {
     SuperRunnerTheme {
         SuperRunnerFloatingActionButton(
             icon = RunIcon,

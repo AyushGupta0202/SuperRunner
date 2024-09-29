@@ -35,9 +35,7 @@ fun SuperRunnerScaffold(
 
 @Preview
 @Composable
-fun SuperRunnerScaffoldPreview(
-    modifier: Modifier = Modifier
-) {
+fun SuperRunnerScaffoldPreview() {
     SuperRunnerTheme {
         SuperRunnerScaffold()
     }

@@ -43,4 +43,4 @@ gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:t
 include(":analytics:data")
 include(":analytics:domain")
 include(":analytics:presentation")
-include(":analytics:analytics-feature")
+include(":analytics:analytics_feature")
