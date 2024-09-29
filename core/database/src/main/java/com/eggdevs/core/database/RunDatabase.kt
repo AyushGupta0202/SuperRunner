@@ -2,6 +2,7 @@ package com.eggdevs.core.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.eggdevs.core.database.dao.AnalyticsDao
 import com.eggdevs.core.database.dao.DeletedRunPendingSyncDao
 import com.eggdevs.core.database.dao.RunDao
 import com.eggdevs.core.database.dao.RunPendingSyncDao
@@ -21,4 +22,5 @@ abstract class RunDatabase: RoomDatabase() {
     abstract val runDao: RunDao
     abstract val runPendingSyncDao: RunPendingSyncDao
     abstract val deletedRunPendingSyncDao: DeletedRunPendingSyncDao
+    abstract val analyticsDao: AnalyticsDao
 }

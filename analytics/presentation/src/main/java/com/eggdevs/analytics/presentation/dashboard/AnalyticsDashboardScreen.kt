@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.eggdevs.analytics.analytics_feature.dashboard
+package com.eggdevs.analytics.presentation.dashboard
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,9 +21,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.eggdevs.analytics.analytics_feature.R
-import com.eggdevs.analytics.analytics_feature.dashboard.components.AnalyticsCard
-import com.eggdevs.analytics.analytics_feature.dashboard.models.AnalyticsCardUi
+import com.eggdevs.analytics.presentation.R
+import com.eggdevs.analytics.presentation.dashboard.components.AnalyticsCard
+import com.eggdevs.analytics.presentation.dashboard.models.AnalyticsCardUi
 import com.eggdevs.core.presentation.designsystem.SuperRunnerTheme
 import com.eggdevs.core.presentation.designsystem.components.SuperRunnerScaffold
 import com.eggdevs.core.presentation.designsystem.components.SuperRunnerToolbar

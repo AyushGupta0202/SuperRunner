@@ -1,4 +1,4 @@
-package com.eggdevs.analytics.analytics_feature.dashboard.components
+package com.eggdevs.analytics.presentation.dashboard.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.eggdevs.analytics.analytics_feature.dashboard.models.AnalyticsCardUi
+import com.eggdevs.analytics.presentation.dashboard.models.AnalyticsCardUi
 
 @Composable
 fun AnalyticsCard(

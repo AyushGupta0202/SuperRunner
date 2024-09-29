@@ -1,4 +1,4 @@
-package com.eggdevs.analytics.analytics_feature.dashboard.models
+package com.eggdevs.analytics.presentation.dashboard.models
 
 data class AnalyticsCardUi(
     val title: String,

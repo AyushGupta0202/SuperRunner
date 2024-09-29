@@ -13,6 +13,12 @@ fun Duration.formatted(): String {
     }
 }
 
+fun Duration.formattedDayHoursMinutes(): String {
+    return toComponents { days, hours, minutes, _, _ ->
+        "${days}d ${hours}h ${minutes}m"
+    }
+}
+
 fun Double.toFormattedKm(): String {
     return "${roundToDecimalPlace(1)} km"
 }

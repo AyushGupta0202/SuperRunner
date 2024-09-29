@@ -1,4 +1,4 @@
-package com.eggdevs.analytics.analytics_feature.dashboard
+package com.eggdevs.analytics.presentation.dashboard
 
 data class AnalyticsDashboardState(
     val totalDistanceRun: String,
