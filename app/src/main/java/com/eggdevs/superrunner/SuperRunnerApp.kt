@@ -1,6 +1,7 @@
 package com.eggdevs.superrunner
 
 import android.app.Application
+import android.content.Context
 import com.eggdevs.auth.data.di.authDataModule
 import com.eggdevs.auth.presentation.di.authViewModelModule
 import com.eggdevs.core.data.di.coreDataModule
@@ -11,6 +12,7 @@ import com.eggdevs.run.location.di.locationModule
 import com.eggdevs.run.network.di.networkModule
 import com.eggdevs.run.presentation.di.runPresentationModule
 import com.eggdevs.superrunner.di.appModule
+import com.google.android.play.core.splitcompat.SplitCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
@@ -46,5 +48,10 @@ class SuperRunnerApp: Application() {
                 runDataModule
             )
         }
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        SplitCompat.install(this)
     }
 }
