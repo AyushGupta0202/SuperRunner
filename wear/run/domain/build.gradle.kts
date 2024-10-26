@@ -4,5 +4,5 @@ plugins {
 
 dependencies {
     implementation(libs.kotlinx.coroutines.core)
-    implementation(projects.core.domain)
+    api(projects.core.domain) // so that core domain is available to the users of this run domain module
 }

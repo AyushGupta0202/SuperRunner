@@ -1,6 +1,7 @@
 package com.eggdevs.wear.app.presentation
 
 import android.app.Application
+import com.eggdevs.wear.run.data.di.wearRunDataModule
 import com.eggdevs.wear.run.presentation.di.wearRunPresentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -13,7 +14,8 @@ class SuperRunnerWearApp: Application() {
             androidLogger()
             androidContext(this@SuperRunnerWearApp)
             modules(
-                wearRunPresentationModule
+                wearRunPresentationModule,
+                wearRunDataModule
             )
         }
     }
