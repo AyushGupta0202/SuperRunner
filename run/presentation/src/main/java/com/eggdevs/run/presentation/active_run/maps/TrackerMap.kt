@@ -1,4 +1,4 @@
-@file:OptIn(MapsComposeExperimentalApi::class)
+@file:OptIn(MapsComposeExperimentalApi::class, DelicateCoroutinesApi::class)
 
 package com.eggdevs.run.presentation.active_run.maps
 
@@ -43,6 +43,7 @@ import com.google.maps.android.compose.MarkerComposable
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
 import com.google.maps.android.ktx.awaitSnapshot
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

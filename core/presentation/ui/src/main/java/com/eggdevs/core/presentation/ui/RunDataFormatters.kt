@@ -50,6 +50,9 @@ fun Double.roundToDecimalPlace(decimalPlaceCount: Int): Double {
     return round(this * factor) / factor
 }
 
+fun Int?.toFormattedHeartRate(): String {
+    return if (this != null) "$this bpm" else "-"
+}
 fun main() {
     val duration = 30.seconds
     println(duration.toFormattedPace(0.0))

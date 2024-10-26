@@ -18,6 +18,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.wear.compose.material3.Button
 import androidx.wear.compose.material3.Text
 import com.eggdevs.core.presentation.designsystem_wear.SuperRunnerTheme
+import com.eggdevs.wear.run.presentation.tracker.TrackerScreenRoot
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,16 +28,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             SuperRunnerTheme {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Button(onClick = {
-                        Toast.makeText(this@MainActivity, "toast", Toast.LENGTH_SHORT).show()
-                    }) {
-                        Text(text = "Hello from Wear!")
-                    }
-                }
+                TrackerScreenRoot()
             }
         }
     }

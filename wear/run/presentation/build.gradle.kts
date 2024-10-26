@@ -14,6 +14,7 @@ dependencies {
 
     implementation(libs.androidx.wear.compose.ui.tooling)
     implementation(libs.androidx.wear.compose.foundation)
+    implementation(libs.androidx.wear.compose.material)
     implementation(libs.play.services.wearable)
 
     implementation(libs.androidx.ui)
@@ -25,4 +26,5 @@ dependencies {
     implementation(libs.bundles.koin.compose)
 
     implementation(projects.core.presentation.designsystemWear)
+    implementation(projects.core.presentation.ui)
 }
