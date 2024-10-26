@@ -43,10 +43,10 @@ import com.eggdevs.run.presentation.R
 import com.eggdevs.run.presentation.active_run.components.RunDataCard
 import com.eggdevs.run.presentation.active_run.maps.TrackerMap
 import com.eggdevs.run.presentation.active_run.service.ActiveRunService
-import com.eggdevs.run.presentation.utils.hasLocationPermission
-import com.eggdevs.run.presentation.utils.hasNotificationPermission
-import com.eggdevs.run.presentation.utils.shouldShowLocationPermissionRationale
-import com.eggdevs.run.presentation.utils.shouldShowNotificationPermissionRationale
+import com.eggdevs.core.utils.hasLocationPermission
+import com.eggdevs.core.utils.hasNotificationPermission
+import com.eggdevs.core.utils.shouldShowLocationPermissionRationale
+import com.eggdevs.core.utils.shouldShowNotificationPermissionRationale
 import org.koin.androidx.compose.koinViewModel
 import java.io.ByteArrayOutputStream
 

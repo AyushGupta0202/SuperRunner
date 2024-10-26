@@ -1,5 +1,8 @@
 package com.eggdevs.wear.run.presentation.tracker
 
+import android.Manifest
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,8 +16,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -34,6 +39,9 @@ import com.eggdevs.core.presentation.designsystem_wear.SuperRunnerTheme
 import com.eggdevs.core.presentation.ui.formatted
 import com.eggdevs.core.presentation.ui.toFormattedHeartRate
 import com.eggdevs.core.presentation.ui.toFormattedKm
+import com.eggdevs.core.utils.hasNotificationPermission
+import com.eggdevs.core.utils.isAtLeastAndroid13
+import com.eggdevs.wear.core.utils.hasBodySensorsPermission
 import com.eggdevs.wear.run.presentation.R
 import com.eggdevs.wear.run.presentation.tracker.components.RunDataCard
 import org.koin.androidx.compose.koinViewModel
@@ -53,6 +61,32 @@ fun TrackerScreen(
     state: TrackerState = TrackerState(),
     onAction: (TrackerAction) -> Unit = {}
 ) {
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions()
+    ) { perms ->
+        val hasBodySensorsPermission = perms[Manifest.permission.BODY_SENSORS] == true
+        onAction(TrackerAction.OnBodySensorsPermissionResult(hasBodySensorsPermission))
+    }
+
+    val context = LocalContext.current
+    LaunchedEffect(key1 = true) {
+        val hasBodySensorsPermission = context.hasBodySensorsPermission()
+        onAction(TrackerAction.OnBodySensorsPermissionResult(hasBodySensorsPermission))
+
+        val hasNotificationPermission = context.hasNotificationPermission()
+
+        val permissions = mutableListOf<String>()
+        if (!hasBodySensorsPermission) {
+            permissions.add(Manifest.permission.BODY_SENSORS)
+        }
+        if (!hasNotificationPermission && isAtLeastAndroid13()) {
+            permissions.add(Manifest.permission.POST_NOTIFICATIONS)
+        }
+
+        permissionLauncher.launch(permissions.toTypedArray())
+    }
+
     if (state.isConnectedPhoneNearby) {
         Column(
             modifier = Modifier
