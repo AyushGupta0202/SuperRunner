@@ -84,5 +84,6 @@ dependencies {
     implementation(projects.run.network)
 
     implementation(projects.core.utils)
+    implementation(projects.core.connectivity.data)
 
 }

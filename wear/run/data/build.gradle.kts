@@ -16,4 +16,6 @@ dependencies {
 
     implementation(libs.bundles.koin)
     implementation(libs.androidx.health.services.client)
+
+    implementation(projects.core.connectivity.domain)
 }

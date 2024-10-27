@@ -17,4 +17,5 @@ dependencies {
     implementation(projects.run.domain)
     implementation(projects.core.domain)
     implementation(projects.core.utils)
+    implementation(projects.core.connectivity.domain)
 }
