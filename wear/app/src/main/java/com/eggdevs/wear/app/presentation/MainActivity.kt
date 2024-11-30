@@ -7,16 +7,9 @@
 package com.eggdevs.wear.app.presentation
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.wear.compose.material3.Button
-import androidx.wear.compose.material3.Text
 import com.eggdevs.core.presentation.designsystem_wear.SuperRunnerTheme
 import com.eggdevs.wear.run.presentation.tracker.TrackerScreenRoot
 
