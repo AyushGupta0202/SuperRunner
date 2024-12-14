@@ -1,6 +1,7 @@
 package com.eggdevs.wear.run.presentation.tracker
 
 import android.Manifest
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -36,6 +37,7 @@ import com.eggdevs.core.presentation.designsystem.FinishIcon
 import com.eggdevs.core.presentation.designsystem.PauseIcon
 import com.eggdevs.core.presentation.designsystem.StartIcon
 import com.eggdevs.core.presentation.designsystem_wear.SuperRunnerTheme
+import com.eggdevs.core.presentation.ui.ObserveAsEvents
 import com.eggdevs.core.presentation.ui.formatted
 import com.eggdevs.core.presentation.ui.toFormattedHeartRate
 import com.eggdevs.core.presentation.ui.toFormattedKm
@@ -50,6 +52,19 @@ import org.koin.androidx.compose.koinViewModel
 fun TrackerScreenRoot(
     viewModel: TrackerViewModel = koinViewModel()
 ) {
+    val context = LocalContext.current
+    ObserveAsEvents(viewModel.events) { event ->
+        when(event) {
+            is TrackerEvent.Error -> {
+                Toast.makeText(
+                    context,
+                    event.message.asString(context),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            TrackerEvent.RunFinished -> Unit
+        }
+    }
     TrackerScreen(
         state = viewModel.state,
         onAction = viewModel::onAction
@@ -61,7 +76,6 @@ fun TrackerScreen(
     state: TrackerState = TrackerState(),
     onAction: (TrackerAction) -> Unit = {}
 ) {
-
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions()
     ) { perms ->
