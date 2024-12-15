@@ -20,7 +20,7 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.bundles.koin.compose)
 
-    implementation(projects.core.presentation.designsystemWear)
+    implementation(projects.wear.core.presentation.designsystemWear)
     implementation(projects.wear.run.presentation)
     implementation(projects.wear.run.data)
     implementation(projects.core.connectivity.data)

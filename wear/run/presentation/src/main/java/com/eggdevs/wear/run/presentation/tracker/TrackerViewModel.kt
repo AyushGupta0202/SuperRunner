@@ -11,7 +11,7 @@ import com.eggdevs.core.domain.util.Result
 import com.eggdevs.wear.run.domain.connectivity.PhoneConnector
 import com.eggdevs.wear.run.domain.tracker.ExerciseTracker
 import com.eggdevs.wear.run.domain.tracker.WearRunningTracker
-import com.eggdevs.wear.run.presentation.toUiText
+import com.eggdevs.wear.presentation.ui.toUiText
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

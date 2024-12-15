@@ -1,4 +1,4 @@
-package com.eggdevs.wear.run.presentation
+package com.eggdevs.wear.presentation.ui
 
 import com.eggdevs.core.presentation.ui.UiText
 import com.eggdevs.wear.run.domain.ExerciseError

@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.eggdevs.core.presentation.designsystem_wear"
+    namespace = "com.eggdevs.wear.core.presentation.designsystem_wear"
 
     defaultConfig {
         minSdk = 30
