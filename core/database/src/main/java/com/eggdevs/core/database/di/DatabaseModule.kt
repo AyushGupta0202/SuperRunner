@@ -1,6 +1,7 @@
 package com.eggdevs.core.database.di
 
 import androidx.room.Room
+import com.eggdevs.core.database.Migration_1_2
 import com.eggdevs.core.database.RunDatabase
 import com.eggdevs.core.database.datasource.RoomLocalRunDataSource
 import com.eggdevs.core.domain.run.datasource.local.LocalRunDataSource
@@ -15,7 +16,9 @@ val databaseModule = module {
             androidApplication(),
             RunDatabase::class.java,
             "run.db"
-        ).build()
+        )
+            .addMigrations(Migration_1_2)
+            .build()
     }
 
     single { get<RunDatabase>().runDao }

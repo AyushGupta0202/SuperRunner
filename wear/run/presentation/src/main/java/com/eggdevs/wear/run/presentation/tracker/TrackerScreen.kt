@@ -47,6 +47,8 @@ import com.eggdevs.wear.core.utils.hasBodySensorsPermission
 import com.eggdevs.wear.run.presentation.R
 import com.eggdevs.wear.run.presentation.tracker.components.RunDataCard
 import org.koin.androidx.compose.koinViewModel
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun TrackerScreenRoot(
@@ -247,7 +249,8 @@ private fun TrackerScreenPreview() {
                 isConnectedPhoneNearby = true,
                 heartRate = 80,
                 distanceMeters = 5687,
-                canTrackHeartRate = true
+                canTrackHeartRate = true,
+                elapsedDuration = 10.minutes + 30.seconds
             )
         )
     }

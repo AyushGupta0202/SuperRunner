@@ -21,7 +21,9 @@ fun RunDto.toRun(): Run {
         mapPictureUrl = mapPictureUrl,
         totalElevationMeters = totalElevationMeters,
         dateTimeUtc = Instant.parse(dateTimeUtc)
-            .atZone(ZoneId.of("UTC"))
+            .atZone(ZoneId.of("UTC")),
+        avgHeartRate = avgHeartRate,
+        maxHeartRate = maxHeartRate
     )
 }
 
@@ -36,7 +38,9 @@ fun Run.toRunDto(): RunDto {
         maxSpeedKmh = maxSpeedKmh,
         totalElevationMeters = totalElevationMeters,
         dateTimeUtc = dateTimeUtc.toInstant().toString(),
-        mapPictureUrl = mapPictureUrl
+        mapPictureUrl = mapPictureUrl,
+        avgHeartRate = avgHeartRate,
+        maxHeartRate = maxHeartRate
     )
 }
 
@@ -53,7 +57,9 @@ fun CreateRunRequest.toRun(): Run {
         mapPictureUrl = null,
         totalElevationMeters = totalElevationMeters,
         dateTimeUtc = Instant.ofEpochMilli(epochMillis)
-            .atZone(ZoneId.of("UTC"))
+            .atZone(ZoneId.of("UTC")),
+        avgHeartRate = avgHeartRate,
+        maxHeartRate = maxHeartRate
     )
 }
 
@@ -67,7 +73,9 @@ fun Run.toCreateRunRequest(): CreateRunRequest {
         avgSpeedKmh = avgSpeedKmh,
         maxSpeedKmh = maxSpeedKmh,
         totalElevationMeters = totalElevationMeters,
-        epochMillis = dateTimeUtc.toEpochSecond() * 1000L
+        epochMillis = dateTimeUtc.toEpochSecond() * 1000L,
+        avgHeartRate = avgHeartRate,
+        maxHeartRate = maxHeartRate
     )
 }
 

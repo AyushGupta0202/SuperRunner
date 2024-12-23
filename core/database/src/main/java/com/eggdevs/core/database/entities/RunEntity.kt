@@ -15,6 +15,8 @@ data class RunEntity(
     val dateTimeUtc: String,
     val latitude: Double,
     val longitude: Double,
+    val avgHeartRate: Int?,
+    val maxHeartRate: Int?,
     @PrimaryKey(autoGenerate = false)
     val id: String = ObjectId().toHexString()
 )

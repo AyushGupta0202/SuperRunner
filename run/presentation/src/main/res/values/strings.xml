@@ -26,4 +26,7 @@
     <string name="total_elevation">"Total Elevation"</string>
     <string name="delete">Delete</string>
     <string name="error_couldnt_load_image">Couldn\'t load image</string>
+    <string name="avg_heart_rate">Ø Heart Rate</string>
+    <string name="max_heart_rate">Max Heart Rate</string>
+    <string name="heart_rate">Heart rate</string>
 </resources>

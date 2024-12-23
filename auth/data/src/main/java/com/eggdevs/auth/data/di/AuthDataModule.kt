@@ -2,6 +2,7 @@ package com.eggdevs.auth.data.di
 
 import com.eggdevs.auth.data.EmailValidator
 import com.eggdevs.auth.data.repository.AuthRepositoryImpl
+import com.eggdevs.auth.data.repository.AuthRepositoryStaticMock
 import com.eggdevs.auth.domain.PatternValidator
 import com.eggdevs.auth.domain.UserDataValidator
 import com.eggdevs.auth.domain.repository.AuthRepository
@@ -14,5 +15,6 @@ val authDataModule = module {
         EmailValidator
     }
     singleOf(::UserDataValidator)
-    singleOf(::AuthRepositoryImpl).bind<AuthRepository>()
+//    singleOf(::AuthRepositoryImpl).bind<AuthRepository>()
+    singleOf(::AuthRepositoryStaticMock).bind<AuthRepository>()
 }

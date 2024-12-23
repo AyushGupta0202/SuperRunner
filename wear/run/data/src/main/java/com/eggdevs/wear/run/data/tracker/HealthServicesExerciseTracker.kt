@@ -92,7 +92,7 @@ class HealthServicesExerciseTracker(
     }
 
     override suspend fun prepareExercise(): EmptyResult<ExerciseError> {
-        if (isHeartRateTrackingSupported()) {
+        if (!isHeartRateTrackingSupported()) {
             return Result.Error(ExerciseError.TRACKING_NOT_SUPPORTED)
         }
 
@@ -111,7 +111,7 @@ class HealthServicesExerciseTracker(
     }
 
     override suspend fun startExercise(): EmptyResult<ExerciseError> {
-        if (isHeartRateTrackingSupported()) {
+        if (!isHeartRateTrackingSupported()) {
             return Result.Error(ExerciseError.TRACKING_NOT_SUPPORTED)
         }
 
@@ -129,7 +129,7 @@ class HealthServicesExerciseTracker(
     }
 
     override suspend fun resumeExercise(): EmptyResult<ExerciseError> {
-        if (isHeartRateTrackingSupported()) {
+        if (!isHeartRateTrackingSupported()) {
             return Result.Error(ExerciseError.TRACKING_NOT_SUPPORTED)
         }
 
@@ -148,7 +148,7 @@ class HealthServicesExerciseTracker(
     }
 
     override suspend fun pauseExercise(): EmptyResult<ExerciseError> {
-        if (isHeartRateTrackingSupported()) {
+        if (!isHeartRateTrackingSupported()) {
             return Result.Error(ExerciseError.TRACKING_NOT_SUPPORTED)
         }
 
@@ -167,7 +167,7 @@ class HealthServicesExerciseTracker(
     }
 
     override suspend fun stopExercise(): EmptyResult<ExerciseError> {
-        if (isHeartRateTrackingSupported()) {
+        if (!isHeartRateTrackingSupported()) {
             return Result.Error(ExerciseError.TRACKING_NOT_SUPPORTED)
         }
 

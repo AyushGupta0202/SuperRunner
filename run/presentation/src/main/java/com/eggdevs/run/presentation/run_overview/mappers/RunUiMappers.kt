@@ -2,6 +2,7 @@ package com.eggdevs.run.presentation.run_overview.mappers
 
 import com.eggdevs.core.domain.run.Run
 import com.eggdevs.core.presentation.ui.formatted
+import com.eggdevs.core.presentation.ui.toFormattedHeartRate
 import com.eggdevs.core.presentation.ui.toFormattedKm
 import com.eggdevs.core.presentation.ui.toFormattedKmh
 import com.eggdevs.core.presentation.ui.toFormattedMeters
@@ -26,7 +27,9 @@ fun Run.toRunUi(): RunUi {
         maxSpeed = maxSpeedKmh.toFormattedKmh(),
         pace = duration.toFormattedPace(distanceKm),
         totalElevation = totalElevationMeters.toFormattedMeters(),
-        mapPictureUrl = mapPictureUrl
+        mapPictureUrl = mapPictureUrl,
+        avgHeartRate = avgHeartRate.toFormattedHeartRate(),
+        maxHeartRate = maxHeartRate.toFormattedHeartRate()
     )
 }
 

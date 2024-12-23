@@ -21,7 +21,9 @@ fun RunEntity.toRun(): Run {
         dateTimeUtc = Instant.parse(dateTimeUtc)
             .atZone(ZoneId.of("UTC")),
         totalElevationMeters = totalElevationMeters,
-        maxSpeedKmh = maxSpeedKmh
+        maxSpeedKmh = maxSpeedKmh,
+        avgHeartRate = avgHeartRate,
+        maxHeartRate = maxHeartRate
     )
 }
 
@@ -36,7 +38,9 @@ fun Run.toRunEntity(): RunEntity {
         maxSpeedKmh = maxSpeedKmh,
         totalElevationMeters = totalElevationMeters,
         durationMillis = duration.inWholeMilliseconds,
-        dateTimeUtc = dateTimeUtc.toInstant().toString()
+        dateTimeUtc = dateTimeUtc.toInstant().toString(),
+        avgHeartRate = avgHeartRate,
+        maxHeartRate = maxHeartRate
     )
 }
 

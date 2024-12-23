@@ -7,6 +7,7 @@ data class RunData(
     val distanceMeters: Int = 0,
     val pace: Duration = Duration.ZERO,
     val locations: List<List<LocationWithAltitudeTimestamp>> = emptyList(),
+    val heartRates: List<Int> = emptyList()
 )
 
 fun <T> List<List<T>>.replaceLast(replacement: List<T>): List<List<T>> {

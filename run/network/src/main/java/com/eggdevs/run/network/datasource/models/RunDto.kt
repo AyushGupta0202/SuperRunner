@@ -13,5 +13,7 @@ data class RunDto(
     val id: String,
     val avgSpeedKmh: Double,
     val maxSpeedKmh: Double,
-    val totalElevationMeters: Int
+    val totalElevationMeters: Int,
+    val avgHeartRate: Int?,
+    val maxHeartRate: Int?
 )

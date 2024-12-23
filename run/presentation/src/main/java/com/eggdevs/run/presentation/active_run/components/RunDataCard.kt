@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eggdevs.core.presentation.designsystem.SuperRunnerTheme
 import com.eggdevs.core.presentation.ui.formatted
+import com.eggdevs.core.presentation.ui.toFormattedHeartRate
 import com.eggdevs.core.presentation.ui.toFormattedKm
 import com.eggdevs.core.presentation.ui.toFormattedPace
 import com.eggdevs.run.domain.models.RunData
@@ -59,6 +60,13 @@ fun RunDataCard(
             RunDataItem(
                 title = stringResource(id = R.string.distance),
                 value = (runData.distanceMeters / 1000.0).toFormattedKm(),
+                modifier = Modifier
+                    .defaultMinSize(minWidth = 75.dp)
+            )
+
+            RunDataItem(
+                title = stringResource(id = R.string.heart_rate),
+                value = runData.heartRates.lastOrNull().toFormattedHeartRate(),
                 modifier = Modifier
                     .defaultMinSize(minWidth = 75.dp)
             )
@@ -107,7 +115,8 @@ private fun RunDataCardPreview() {
             elapsedTime = 10.minutes,
             runData = RunData(
                 distanceMeters = 3456,
-                pace = 3.minutes
+                pace = 3.minutes,
+                heartRates = listOf(120, 130, 140)
             )
         )
     }

@@ -160,6 +160,7 @@ fun ActiveRunScreen(
         }
     }
 
+    // TODO: remove back handling
     BackHandler {
         if (state.hasStartedRunning && !state.isRunFinished) {
             onAction(ActiveRunAction.OnBackClick)
@@ -237,7 +238,7 @@ fun ActiveRunScreen(
             onDismissDialog = {
                 onAction(ActiveRunAction.OnResumeRunClick)
             },
-            primaryContent = {
+            primaryContent = { // TODO: disable after finish button press and re-enable maybe after 5 seconds or so
                 SuperRunnerActionButton(
                     text = stringResource(id = R.string.resume),
                     isLoading = false,
@@ -247,7 +248,7 @@ fun ActiveRunScreen(
                     }
                 )
             },
-            secondaryContent = {
+            secondaryContent = { // TODO: disable after first press and re-enable maybe after 5 seconds or so
                 SuperRunnerOutlinedActionButton(
                     text = stringResource(id = R.string.finish),
                     modifier = Modifier.weight(1f),
