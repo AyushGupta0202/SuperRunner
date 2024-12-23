@@ -22,12 +22,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.eggdevs.core.presentation.designsystem.StartIcon
 import com.eggdevs.core.presentation.designsystem.StopIcon
 import com.eggdevs.core.presentation.designsystem.SuperRunnerTheme
@@ -42,7 +44,7 @@ import com.eggdevs.core.utils.isAtLeastAndroid13
 import com.eggdevs.run.presentation.R
 import com.eggdevs.run.presentation.active_run.components.RunDataCard
 import com.eggdevs.run.presentation.active_run.maps.TrackerMap
-import com.eggdevs.run.presentation.active_run.service.ActiveRunService
+import com.eggdevs.core.notification.service.ActiveRunService
 import com.eggdevs.core.utils.hasLocationPermission
 import com.eggdevs.core.utils.hasNotificationPermission
 import com.eggdevs.core.utils.shouldShowLocationPermissionRationale
@@ -148,8 +150,9 @@ fun ActiveRunScreen(
         }
     }
 
-    LaunchedEffect(key1 = state.shouldTrack) {
-        if (context.hasLocationPermission() && state.shouldTrack && !ActiveRunService.isServiceActive) {
+    val isServiceActive by ActiveRunService.isServiceActive.collectAsStateWithLifecycle()
+    LaunchedEffect(key1 = state.shouldTrack, isServiceActive) {
+        if (context.hasLocationPermission() && state.shouldTrack && !isServiceActive) {
             onServiceToggle(true)
         }
     }

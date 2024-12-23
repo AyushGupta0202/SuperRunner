@@ -10,6 +10,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.eggdevs.core.notification.service.ActiveRunService
 import com.eggdevs.core.presentation.designsystem_wear.SuperRunnerTheme
 import com.eggdevs.wear.run.presentation.tracker.TrackerScreenRoot
 
@@ -21,7 +22,20 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             SuperRunnerTheme {
-                TrackerScreenRoot()
+                TrackerScreenRoot(
+                    onServiceToggle = { shouldStartRunning ->
+                        if (shouldStartRunning) {
+                            startService(
+                                ActiveRunService.createStartIntent(
+                                    context = applicationContext,
+                                    activityClass = this::class.java
+                                )
+                            )
+                        } else {
+                            ActiveRunService.createStopIntent(applicationContext)
+                        }
+                    }
+                )
             }
         }
     }

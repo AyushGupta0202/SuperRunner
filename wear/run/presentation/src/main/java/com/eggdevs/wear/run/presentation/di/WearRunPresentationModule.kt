@@ -9,4 +9,7 @@ import org.koin.dsl.module
 val wearRunPresentationModule = module {
     viewModelOf(::TrackerViewModel)
     singleOf(::WearRunningTracker)
+    single {
+        get<WearRunningTracker>().elapsedDuration
+    }
 }

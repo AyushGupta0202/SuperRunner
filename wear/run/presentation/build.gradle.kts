@@ -30,5 +30,6 @@ dependencies {
     implementation(projects.core.presentation.ui)
     implementation(projects.core.connectivity.domain)
     implementation(projects.wear.core.utils)
+    implementation(projects.core.notification)
     implementation(projects.wear.run.domain)
 }

@@ -24,4 +24,5 @@ dependencies {
     implementation(projects.wear.run.presentation)
     implementation(projects.wear.run.data)
     implementation(projects.core.connectivity.data)
+    implementation(projects.core.notification)
 }

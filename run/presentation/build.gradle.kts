@@ -18,4 +18,5 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.utils)
     implementation(projects.core.connectivity.domain)
+    implementation(projects.core.notification)
 }

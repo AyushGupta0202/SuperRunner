@@ -12,7 +12,7 @@ import com.eggdevs.auth.presentation.intro.IntroScreenRoot
 import com.eggdevs.auth.presentation.login.LoginScreenRoot
 import com.eggdevs.auth.presentation.register.RegisterScreenRoot
 import com.eggdevs.run.presentation.active_run.ActiveRunScreenRoot
-import com.eggdevs.run.presentation.active_run.service.ActiveRunService
+import com.eggdevs.core.notification.service.ActiveRunService
 import com.eggdevs.run.presentation.run_overview.RunOverviewScreenRoot
 
 @Composable
@@ -91,7 +91,7 @@ private fun NavGraphBuilder.runGraph(
     onAnalyticsClick: () -> Unit = {}
 ) {
     navigation(
-        startDestination = if (ActiveRunService.isServiceActive) "active_run" else "run_overview",
+        startDestination = if (ActiveRunService.isServiceActive.value) "active_run" else "run_overview",
         route = "run"
     ) {
         composable("run_overview") {

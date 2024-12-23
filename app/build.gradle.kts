@@ -85,5 +85,6 @@ dependencies {
 
     implementation(projects.core.utils)
     implementation(projects.core.connectivity.data)
+    implementation(projects.core.notification)
 
 }
