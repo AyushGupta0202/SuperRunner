@@ -15,10 +15,10 @@
       </SelectionState>
       <SelectionState runConfigName="wear.app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-12-21T09:56:04.347362Z">
+        <DropdownSelection timestamp="2024-12-22T10:49:09.065590Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=ZD2229CRDM" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=/Users/ayushgupta/.android/avd/Wear_OS_Large_Round_API_34.avd" />
             </handle>
           </Target>
         </DropdownSelection>

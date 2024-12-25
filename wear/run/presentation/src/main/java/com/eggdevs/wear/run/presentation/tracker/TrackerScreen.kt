@@ -40,6 +40,8 @@ import com.eggdevs.core.presentation.designsystem.FinishIcon
 import com.eggdevs.core.presentation.designsystem.PauseIcon
 import com.eggdevs.core.presentation.designsystem.StartIcon
 import com.eggdevs.core.presentation.designsystem_wear.SuperRunnerTheme
+import com.eggdevs.core.presentation.designsystem_wear.ambient.AmbientObserver
+import com.eggdevs.core.presentation.designsystem_wear.ambient.ambientMode
 import com.eggdevs.core.presentation.ui.ObserveAsEvents
 import com.eggdevs.core.presentation.ui.formatted
 import com.eggdevs.core.presentation.ui.toFormattedHeartRate
@@ -116,11 +118,21 @@ fun TrackerScreen(
         permissionLauncher.launch(permissions.toTypedArray())
     }
 
+    AmbientObserver(
+        onEnterAmbient = { ambientDetails ->
+            onAction(TrackerAction.OnEnterAmbientMode(ambientDetails.burnInProtectionRequired))
+        },
+        onExitAmbient = {
+            onAction(TrackerAction.OnExitAmbientMode)
+        }
+    )
+
     if (state.isConnectedPhoneNearby) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background),
+                .background(MaterialTheme.colorScheme.background)
+                .ambientMode(state.isAmbientMode, state.burnInProtectionRequired),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
