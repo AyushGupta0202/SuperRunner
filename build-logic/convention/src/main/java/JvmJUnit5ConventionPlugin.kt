@@ -17,6 +17,7 @@ class JvmJUnit5ConventionPlugin: Plugin<Project> {
                 "testRuntimeOnly"(libs.findLibrary("junit5.engine").get())
 
                 "testImplementation"(libs.findLibrary("assertk").get())
+                "testImplementation"(libs.findLibrary("coroutines.test").get())
                 "testImplementation"(libs.findLibrary("turbine").get())
             }
         }
