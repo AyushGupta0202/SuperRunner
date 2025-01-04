@@ -112,6 +112,12 @@ org-mongodb-bson = { module = "org.mongodb:bson", version.ref = "bson" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 google-maps-android-utils-ktx = { module = "com.google.maps.android:maps-utils-ktx", version.ref = "mapsUtils"}
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+androidx-wear-compose-material = { group = "androidx.wear.compose", name = "compose-material3", version.ref = "composeMaterialWearOs" }
+androidx-wear-compose-foundation = { group = "androidx.wear.compose", name = "compose-foundation", version.ref = "composeWearOs" }
+androidx-wear-compose-ui-tooling = { group = "androidx.wear.compose", name = "compose-ui-tooling", version.ref = "composeWearOs" }
+play-services-wearable = { group = "com.google.android.gms", name = "play-services-wearable", version.ref = "play-services-wearable" }
+androidx-health-services-client = { group = "androidx.health", name = "health-services-client", version.ref = "health" }
+androidx-wear = { group = "androidx.wear", name = "wear", version.ref = "wear" }
 
 # Test dependencies
 junit5-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
@@ -130,12 +136,6 @@ android-tools-common = { group = "com.android.tools", name = "common", version.r
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
-androidx-wear-compose-material = { group = "androidx.wear.compose", name = "compose-material3", version.ref = "composeMaterialWearOs" }
-androidx-wear-compose-foundation = { group = "androidx.wear.compose", name = "compose-foundation", version.ref = "composeWearOs" }
-androidx-wear-compose-ui-tooling = { group = "androidx.wear.compose", name = "compose-ui-tooling", version.ref = "composeWearOs" }
-play-services-wearable = { group = "com.google.android.gms", name = "play-services-wearable", version.ref = "play-services-wearable" }
-androidx-health-services-client = { group = "androidx.health", name = "health-services-client", version.ref = "health" }
-androidx-wear = { group = "androidx.wear", name = "wear", version.ref = "wear" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -147,6 +147,8 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 room = { id = "androidx.room", version.ref = "room" }
 androidDynamicFeature = { id = "com.android.dynamic-feature", version.ref = "agp" }
 mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsPlugin"}
+junit = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin" }
+
 superrunner-android-application = { id = "superrunner.android.application", version = "unspecified" }
 superrunner-android-application-compose = { id = "superrunner.android.application.compose", version = "unspecified" }
 superrunner-android-application-wear-compose = { id = "superrunner.android.application.wear.compose", version = "unspecified" }
@@ -159,7 +161,6 @@ superrunner-jvm-library = { id = "superrunner.jvm.library", version = "unspecifi
 superrunner-jvm-ktor = { id = "superrunner.jvm.ktor", version = "unspecified" }
 superrunner-jvm-junit5 = { id = "superrunner.jvm.junit5", version = "unspecified" }
 superrunner-android-junit5 = { id = "superrunner.android.junit5", version = "unspecified" }
-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin" }
 
 [bundles]
 compose = [
