@@ -18,4 +18,5 @@ dependencies {
     implementation(libs.androidx.health.services.client)
 
     implementation(projects.core.connectivity.domain)
+    implementation(projects.core.utils)
 }

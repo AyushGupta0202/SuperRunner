@@ -2,6 +2,7 @@ package com.eggdevs.wear.app.presentation
 
 import android.app.Application
 import com.eggdevs.core.connectivity.data.di.coreConnectivityDataModule
+import com.eggdevs.core.utils.di.utilsModule
 import com.eggdevs.wear.app.presentation.di.wearAppModule
 import com.eggdevs.wear.run.data.di.wearRunDataModule
 import com.eggdevs.wear.run.presentation.di.wearRunPresentationModule
@@ -24,7 +25,8 @@ class SuperRunnerWearApp: Application() {
                 wearAppModule,
                 wearRunPresentationModule,
                 wearRunDataModule,
-                coreConnectivityDataModule
+                coreConnectivityDataModule,
+                utilsModule
             )
         }
     }

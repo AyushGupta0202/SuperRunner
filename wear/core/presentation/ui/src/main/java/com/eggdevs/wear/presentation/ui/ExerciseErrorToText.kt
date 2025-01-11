@@ -3,7 +3,6 @@ package com.eggdevs.wear.presentation.ui
 import com.eggdevs.core.presentation.ui.UiText
 import com.eggdevs.wear.run.domain.ExerciseError
 
-// TODO: Move the presentation.designsystem_wear to the wear core module and create new presentation.ui module
 fun ExerciseError.toUiText(): UiText? {
     return when(this) {
         ExerciseError.ONGOING_OWN_EXERCISE,

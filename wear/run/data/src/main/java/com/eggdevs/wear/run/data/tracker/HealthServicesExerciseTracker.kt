@@ -26,7 +26,7 @@ import androidx.health.services.client.resumeExercise
 import androidx.health.services.client.startExercise
 import com.eggdevs.core.domain.util.EmptyResult
 import com.eggdevs.core.domain.util.Result
-import com.eggdevs.wear.run.data.BuildConfig
+import com.eggdevs.core.utils.BuildConfigWrapper
 import com.eggdevs.wear.run.domain.ExerciseError
 import com.eggdevs.wear.run.domain.tracker.ExerciseTracker
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +38,8 @@ import kotlinx.coroutines.runBlocking
 import kotlin.math.roundToInt
 
 class HealthServicesExerciseTracker(
-    private val context: Context
+    private val context: Context,
+    private val buildConfig: BuildConfigWrapper
 ): ExerciseTracker {
 
     private val healthServicesExerciseClient = HealthServices.getClient(context).exerciseClient
@@ -65,7 +66,7 @@ class HealthServicesExerciseTracker(
                 override fun onRegistered() = Unit
 
                 override fun onRegistrationFailed(throwable: Throwable) {
-                    if (BuildConfig.DEBUG) { // TODO: BuildConfig wrapper
+                    if (buildConfig.isDebug()) {
                         throwable.printStackTrace()
                     }
                 }
