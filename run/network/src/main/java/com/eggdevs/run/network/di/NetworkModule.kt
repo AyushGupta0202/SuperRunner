@@ -8,6 +8,6 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val networkModule = module {
-//    singleOf(::KtorRemoteRunDataSource).bind<RemoteRunDataSource>()
-    singleOf(::RemoteRunDataSourceStaticMock).bind<RemoteRunDataSource>()
+    singleOf(::KtorRemoteRunDataSource).bind<RemoteRunDataSource>()
+//    singleOf(::RemoteRunDataSourceStaticMock).bind<RemoteRunDataSource>()
 }

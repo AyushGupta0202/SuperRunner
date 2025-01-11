@@ -15,6 +15,6 @@ val authDataModule = module {
         EmailValidator
     }
     singleOf(::UserDataValidator)
-//    singleOf(::AuthRepositoryImpl).bind<AuthRepository>()
-    singleOf(::AuthRepositoryStaticMock).bind<AuthRepository>()
+    singleOf(::AuthRepositoryImpl).bind<AuthRepository>()
+//    singleOf(::AuthRepositoryStaticMock).bind<AuthRepository>()
 }
