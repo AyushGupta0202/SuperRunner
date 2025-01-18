@@ -1,8 +1,7 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalMaterial3Api::class)
 
 package com.eggdevs.run.presentation.run_overview
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -28,6 +27,7 @@ import com.eggdevs.core.presentation.designsystem.LogoutIcon
 import com.eggdevs.core.presentation.designsystem.RunIcon
 import com.eggdevs.core.presentation.designsystem.SuperRunnerTheme
 import com.eggdevs.core.presentation.designsystem.components.SuperRunnerFloatingActionButton
+import com.eggdevs.core.presentation.designsystem.components.SuperRunnerLoader
 import com.eggdevs.core.presentation.designsystem.components.SuperRunnerScaffold
 import com.eggdevs.core.presentation.designsystem.components.SuperRunnerToolbar
 import com.eggdevs.core.presentation.designsystem.models.DropDownItem
@@ -117,28 +117,36 @@ fun RunOverviewScreen(
         },
         floatingActionButtonPosition = FabPosition.Center
     ) { padding ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .nestedScroll(scrollBehavior.nestedScrollConnection)
-                .padding(horizontal = 16.dp),
-            contentPadding = padding,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            items(
-                items = state.runs,
-                key = {
-                    it.id
-                }
+        if (state.runs.isEmpty()) {
+            SuperRunnerLoader(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+            )
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .nestedScroll(scrollBehavior.nestedScrollConnection)
+                    .padding(horizontal = 16.dp),
+                contentPadding = padding,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                RunListItem(
-                    modifier = Modifier
-                        .animateItemPlacement(),
-                    runUi = it,
-                    onDeleteClick = {
-                        onAction(RunOverviewAction.OnDeleteRunClick(it))
+                items(
+                    items = state.runs,
+                    key = {
+                        it.id
                     }
-                )
+                ) {
+                    RunListItem(
+                        modifier = Modifier
+                            .animateItem(),
+                        runUi = it,
+                        onDeleteClick = {
+                            onAction(RunOverviewAction.OnDeleteRunClick(it))
+                        }
+                    )
+                }
             }
         }
     }

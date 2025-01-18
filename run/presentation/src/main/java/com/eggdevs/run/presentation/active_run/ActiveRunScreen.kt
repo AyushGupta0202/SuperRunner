@@ -214,7 +214,7 @@ fun ActiveRunScreen(
                     // TODO: make OnRunProcessed have a bitmap rather than byte array and do this in the viewmodel
                     val stream = ByteArrayOutputStream()
                     stream.use {
-                        bitmap.compress(
+                        bitmap?.compress(
                             Bitmap.CompressFormat.JPEG,
                             80,
                             it

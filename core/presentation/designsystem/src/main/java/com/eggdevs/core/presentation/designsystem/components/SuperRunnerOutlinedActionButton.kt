@@ -51,12 +51,16 @@ fun SuperRunnerOutlinedActionButton(
                 .padding(vertical = 8.dp),
             contentAlignment = Alignment.Center
         ) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .size(15.dp)
-                    .alpha(if (isLoading) 1f else 0f),
-                strokeWidth = 1.5.dp,
-                color = MaterialTheme.colorScheme.onBackground
+            SuperRunnerLoader(
+                content = {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .size(15.dp)
+                            .alpha(if (isLoading) 1f else 0f),
+                        strokeWidth = 1.5.dp,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
             )
             Text(
                 text = text,

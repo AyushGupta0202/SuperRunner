@@ -55,7 +55,7 @@ fun TrackerMap(
     isRunFinished: Boolean = false,
     currentLocation: Location? = null,
     locations: List<List<LocationWithAltitudeTimestamp>> = listOf(),
-    onSnapshot: (Bitmap) -> Unit = {},
+    onSnapshot: (Bitmap?) -> Unit = {},
 ) {
     val context = LocalContext.current
     val mapStyle = remember {
@@ -131,8 +131,14 @@ fun TrackerMap(
             if (isRunFinished && triggerCapture && createSnapshotJob == null) {
                 triggerCapture = false
 
+                if (locations.flatten().isEmpty()) {
+                    onSnapshot(null)
+                    return@MapEffect
+                }
+
                 val boundsBuilder = LatLngBounds.builder()
                 locations.flatten().forEach { locationWithAltitudeTimestamp ->
+                    println("point: ${locationWithAltitudeTimestamp.locationWithAltitude.location}")
                     boundsBuilder
                         .include(
                             LatLng(

@@ -50,6 +50,7 @@ import com.eggdevs.core.domain.run.Run
 import com.eggdevs.core.presentation.designsystem.CalendarIcon
 import com.eggdevs.core.presentation.designsystem.RunOutlinedIcon
 import com.eggdevs.core.presentation.designsystem.SuperRunnerTheme
+import com.eggdevs.core.presentation.designsystem.components.SuperRunnerLoader
 import com.eggdevs.run.presentation.R
 import com.eggdevs.run.presentation.run_overview.mappers.toRunUi
 import com.eggdevs.run.presentation.run_overview.models.RunDataUi
@@ -134,18 +135,18 @@ private fun RunMapImage(
         model = imageUrl,
         contentDescription = stringResource(id = R.string.run_map),
         loading = {
-            Box(
+            SuperRunnerLoader(
                 modifier = Modifier
                     .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .size(20.dp),
-                    strokeWidth = 2.dp,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-            }
+                content = {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .size(20.dp),
+                        strokeWidth = 2.dp,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+            )
         },
         error = {
             Box(

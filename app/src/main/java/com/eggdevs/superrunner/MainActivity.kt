@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,6 +27,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.eggdevs.core.presentation.designsystem.SuperRunnerTheme
+import com.eggdevs.core.presentation.designsystem.components.SuperRunnerLoader
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
@@ -73,6 +73,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private val viewModel by viewModel<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen().apply {
@@ -88,37 +89,42 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    if (!viewModel.state.isCheckingAuth) {
-                        val navController = rememberNavController()
-                        NavigationRoot(
-                            navController = navController,
-                            isLoggedIn = viewModel.state.isLoggedIn,
-                            onAnalyticsClick = {
-                                installOrStartAnalyticsFeature()
-                            }
-                        )
+                    extracted()
+                }
+            }
+        }
+    }
 
-                        if (viewModel.state.showAnalyticsInstallDialog) {
-                            Dialog(
-                                onDismissRequest = {}
-                            ) {
-                                Column(
-                                    modifier = Modifier
-                                        .clip(RoundedCornerShape(15.dp))
-                                        .background(MaterialTheme.colorScheme.surface)
-                                        .padding(16.dp),
-                                    verticalArrangement = Arrangement.Center,
-                                    horizontalAlignment = Alignment.CenterHorizontally
-                                ) {
-                                    CircularProgressIndicator()
-                                    Spacer(modifier = Modifier.height(8.dp))
-                                    Text(
-                                        text = stringResource(id = R.string.installing_module),
-                                        color = MaterialTheme.colorScheme.onSurface
-                                    )
-                                }
-                            }
-                        }
+    @Composable
+    private fun extracted() {
+        if (!viewModel.state.isCheckingAuth) {
+            val navController = rememberNavController()
+            NavigationRoot(
+                navController = navController,
+                isLoggedIn = viewModel.state.isLoggedIn,
+                onAnalyticsClick = {
+                    installOrStartAnalyticsFeature()
+                }
+            )
+
+            if (viewModel.state.showAnalyticsInstallDialog) {
+                Dialog(
+                    onDismissRequest = {}
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(15.dp))
+                            .background(MaterialTheme.colorScheme.surface)
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        SuperRunnerLoader()
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = stringResource(id = R.string.installing_module),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
                     }
                 }
             }

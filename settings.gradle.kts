@@ -20,6 +20,8 @@ dependencyResolutionManagement {
     }
 }
 
+gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))
+
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "SuperRunner"
@@ -38,8 +40,6 @@ include(":run:presentation")
 include(":run:location")
 include(":run:network")
 include(":core:utils")
-
-gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))
 include(":analytics:data")
 include(":analytics:domain")
 include(":analytics:presentation")

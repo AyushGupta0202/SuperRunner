@@ -3,7 +3,6 @@
 package com.eggdevs.analytics.presentation.dashboard
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,11 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -25,6 +22,7 @@ import com.eggdevs.analytics.presentation.R
 import com.eggdevs.analytics.presentation.dashboard.components.AnalyticsCard
 import com.eggdevs.analytics.presentation.dashboard.models.AnalyticsCardUi
 import com.eggdevs.core.presentation.designsystem.SuperRunnerTheme
+import com.eggdevs.core.presentation.designsystem.components.SuperRunnerLoader
 import com.eggdevs.core.presentation.designsystem.components.SuperRunnerScaffold
 import com.eggdevs.core.presentation.designsystem.components.SuperRunnerToolbar
 import org.koin.androidx.compose.koinViewModel
@@ -64,14 +62,11 @@ fun AnalyticsDashboardScreen(
         }
     ) { padding ->
         if (state == null) {
-            Box(
+            SuperRunnerLoader(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
+                    .padding(padding)
+            )
         } else {
             val analyticsCardsList = listOf(
                 AnalyticsCardUi(

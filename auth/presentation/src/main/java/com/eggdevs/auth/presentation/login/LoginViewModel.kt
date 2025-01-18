@@ -1,9 +1,5 @@
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package com.eggdevs.auth.presentation.login
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.text2.input.textAsFlow
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -16,6 +12,7 @@ import com.eggdevs.core.domain.util.DataError
 import com.eggdevs.core.domain.util.Result
 import com.eggdevs.core.presentation.ui.UiText
 import com.eggdevs.core.presentation.ui.asUiText
+import com.eggdevs.core.presentation.ui.textAsFlow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
