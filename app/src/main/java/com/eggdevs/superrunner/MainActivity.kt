@@ -73,7 +73,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private val viewModel by viewModel<MainViewModel>()
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen().apply {
@@ -89,42 +89,37 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    extracted()
-                }
-            }
-        }
-    }
-
-    @Composable
-    private fun extracted() {
-        if (!viewModel.state.isCheckingAuth) {
-            val navController = rememberNavController()
-            NavigationRoot(
-                navController = navController,
-                isLoggedIn = viewModel.state.isLoggedIn,
-                onAnalyticsClick = {
-                    installOrStartAnalyticsFeature()
-                }
-            )
-
-            if (viewModel.state.showAnalyticsInstallDialog) {
-                Dialog(
-                    onDismissRequest = {}
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(15.dp))
-                            .background(MaterialTheme.colorScheme.surface)
-                            .padding(16.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        SuperRunnerLoader()
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = stringResource(id = R.string.installing_module),
-                            color = MaterialTheme.colorScheme.onSurface
+                    if (!viewModel.state.isCheckingAuth) {
+                        val navController = rememberNavController()
+                        NavigationRoot(
+                            navController = navController,
+                            isLoggedIn = viewModel.state.isLoggedIn,
+                            onAnalyticsClick = {
+                                installOrStartAnalyticsFeature()
+                            }
                         )
+
+                        if (viewModel.state.showAnalyticsInstallDialog) {
+                            Dialog(
+                                onDismissRequest = {}
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .clip(RoundedCornerShape(15.dp))
+                                        .background(MaterialTheme.colorScheme.surface)
+                                        .padding(16.dp),
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    SuperRunnerLoader()
+                                    Spacer(modifier = Modifier.height(8.dp))
+                                    Text(
+                                        text = stringResource(id = R.string.installing_module),
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
             }
