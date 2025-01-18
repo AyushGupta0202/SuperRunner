@@ -16,21 +16,17 @@ import com.eggdevs.core.domain.util.EmptyResult
 import com.eggdevs.core.domain.util.Result
 import com.eggdevs.core.domain.util.asEmptyDataResult
 import io.ktor.client.HttpClient
-import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.authProviders
 import io.ktor.client.plugins.auth.providers.BearerAuthProvider
-import io.ktor.client.plugins.plugin
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import kotlin.system.measureTimeMillis
 
 class OfflineFirstRunRepository(
     private val localRunDataSource: LocalRunDataSource,

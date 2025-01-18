@@ -25,7 +25,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.android.inject
-import java.lang.IllegalArgumentException
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.time.Duration

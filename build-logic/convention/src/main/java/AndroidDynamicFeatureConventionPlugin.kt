@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.DynamicFeatureExtension
 import com.eggdevs.convention.ExtensionType
 import com.eggdevs.convention.addUiLayerDependencies
@@ -6,7 +5,6 @@ import com.eggdevs.convention.configureAndroidCompose
 import com.eggdevs.convention.configureBuildTypes
 import com.eggdevs.convention.configureKotlinAndroid
 import com.eggdevs.convention.configureTestLibraries
-import com.eggdevs.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
