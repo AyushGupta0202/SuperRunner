@@ -1,8 +1,5 @@
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package com.eggdevs.auth.presentation.login
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse

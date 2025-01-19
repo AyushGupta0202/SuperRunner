@@ -10,5 +10,4 @@ fun DependencyHandlerScope.addUiLayerDependencies(project: Project) {
     "implementation"(project.libs.findBundle("compose").get())
     "implementation"(project.libs.findBundle("koin.compose").get())
     "debugImplementation"(project.libs.findBundle("compose.debug").get())
-    "androidTestImplementation"(project.libs.findLibrary("androidx.ui.test.junit4").get())
 }

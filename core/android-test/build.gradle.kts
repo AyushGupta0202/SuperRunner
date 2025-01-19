@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.superrunner.android.library)
-    alias(libs.plugins.superrunner.android.junit5)
 }
 
 android {

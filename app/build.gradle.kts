@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.superrunner.android.application.compose)
     alias(libs.plugins.superrunner.jvm.ktor)
-    alias(libs.plugins.superrunner.android.junit5)
 }
 
 android {
@@ -50,8 +49,6 @@ dependencies {
     api(libs.play.feature.delivery)
     api(libs.play.feature.delivery.ktx)
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
