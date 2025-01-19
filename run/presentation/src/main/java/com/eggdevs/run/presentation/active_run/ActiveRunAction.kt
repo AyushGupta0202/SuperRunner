@@ -15,4 +15,5 @@ sealed interface ActiveRunAction {
     ): ActiveRunAction
     data object OnDismissPermissionRationaleDialog: ActiveRunAction
     class OnRunProcessed(val mapPictureBytes: ByteArray): ActiveRunAction
+    data object CancelRun: ActiveRunAction
 }

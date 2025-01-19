@@ -31,4 +31,7 @@ sealed interface MessagingActionDto {
 
     @Serializable
     data class TimeUpdate(val elapsedDuration: Duration) : MessagingActionDto
+
+    @Serializable
+    data object CancelRun : MessagingActionDto
 }

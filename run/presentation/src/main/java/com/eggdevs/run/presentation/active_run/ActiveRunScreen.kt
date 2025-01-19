@@ -15,6 +15,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Clear
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.MaterialTheme
@@ -44,6 +47,7 @@ import com.eggdevs.run.presentation.R
 import com.eggdevs.run.presentation.active_run.components.RunDataCard
 import com.eggdevs.run.presentation.active_run.maps.TrackerMap
 import com.eggdevs.core.notification.service.ActiveRunService
+import com.eggdevs.core.presentation.designsystem.models.DropDownItem
 import com.eggdevs.core.utils.hasLocationPermission
 import com.eggdevs.core.utils.hasNotificationPermission
 import com.eggdevs.core.utils.shouldShowLocationPermissionRationale
@@ -175,7 +179,20 @@ fun ActiveRunScreen(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.Transparent
-                )
+                ),
+                dropDownItemList = listOf(
+                    DropDownItem(
+                        title = stringResource(id = R.string.cancel_run),
+                        icon = Icons.Rounded.Close
+                    )
+                ),
+                onMenuItemClick = {
+                    when(it) {
+                        0 -> {
+                            onAction(ActiveRunAction.CancelRun)
+                        }
+                    }
+                }
             )
         },
         floatingActionButton = {

@@ -12,4 +12,5 @@ sealed interface MessagingAction {
     data class HeartRateUpdate(val heartRate: Int): MessagingAction
     data class DistanceUpdate(val distanceMeters: Int): MessagingAction
     data class TimeUpdate(val elapsedDuration: Duration): MessagingAction
+    data object CancelRun: MessagingAction
 }

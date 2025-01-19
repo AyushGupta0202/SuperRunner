@@ -30,4 +30,5 @@
     <string name="max_heart_rate">Max Heart Rate</string>
     <string name="heart_rate">Heart rate</string>
     <string name="no_location_data">No location data available!</string>
+    <string name="cancel_run">Cancel run</string>
 </resources>
