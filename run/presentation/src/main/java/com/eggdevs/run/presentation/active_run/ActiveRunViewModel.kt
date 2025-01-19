@@ -16,6 +16,8 @@ import com.eggdevs.run.domain.LocationDataCalculator
 import com.eggdevs.run.domain.RunningTracker
 import com.eggdevs.run.domain.connectivity.WatchConnector
 import com.eggdevs.core.notification.service.ActiveRunService
+import com.eggdevs.core.presentation.ui.UiText
+import com.eggdevs.run.presentation.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -121,7 +123,9 @@ class ActiveRunViewModel(
     fun onAction(action: ActiveRunAction, triggeredOnWatch: Boolean = false) {
         if (!triggeredOnWatch) {
             val messagingAction = when(action) {
-                ActiveRunAction.OnFinishRunClick -> MessagingAction.Finish
+                ActiveRunAction.OnFinishRunClick -> if (!isLocationsListEmpty()){
+                    MessagingAction.Finish
+                } else null
                 ActiveRunAction.OnResumeRunClick -> MessagingAction.StartOrResume
                 ActiveRunAction.OnToggleRunClick -> {
                     if (state.hasStartedRunning) {
@@ -152,11 +156,17 @@ class ActiveRunViewModel(
                 )
             }
             ActiveRunAction.OnFinishRunClick -> {
-                state = state.copy(
+                if (!isLocationsListEmpty()) {
+                    state = state.copy(
 //                    shouldTrack = false,
-                    isRunFinished = true,
-                    isSavingRun = true
-                )
+                        isRunFinished = true,
+                        isSavingRun = true
+                    )
+                } else {
+                    viewModelScope.launch {
+                        activeRunEventChannel.send(ActiveRunEvent.Error(UiText.StringResource(R.string.no_location_data)))
+                    }
+                }
             }
             ActiveRunAction.OnResumeRunClick -> {
                 state = state.copy(
@@ -190,7 +200,7 @@ class ActiveRunViewModel(
     private fun finishRun(mapPictureBytes: ByteArray) {
         val locations = state.runData.locations
         // TODO: we can apply this check in tracker map itself
-        if (locations.isEmpty() || locations.first().size <= 1) {
+        if (isLocationsListEmpty()) {
             state = state.copy(
                 isSavingRun = false
             )
@@ -289,5 +299,9 @@ class ActiveRunViewModel(
             }
             runningTracker.stopObservingLocation()
         }
+    }
+
+    private fun isLocationsListEmpty(): Boolean {
+        return state.runData.locations.flatten().isEmpty()
     }
 }

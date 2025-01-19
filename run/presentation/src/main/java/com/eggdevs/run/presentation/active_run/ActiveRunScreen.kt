@@ -7,7 +7,6 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.widget.Toast
-import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -70,6 +69,7 @@ fun ActiveRunScreenRoot(
                 ).show()
             }
             ActiveRunEvent.RunSaved -> {
+                Toast.makeText(context, "run finished", Toast.LENGTH_SHORT).show()
                 onRunFinished()
             }
         }
@@ -163,15 +163,6 @@ fun ActiveRunScreen(
         }
     }
 
-    // TODO: remove back handling
-    BackHandler {
-        if (state.hasStartedRunning && !state.isRunFinished) {
-            onAction(ActiveRunAction.OnBackClick)
-        } else {
-            onBack()
-        }
-    }
-
     SuperRunnerScaffold(
         withGradient = false,
         topAppBar = {
@@ -214,7 +205,7 @@ fun ActiveRunScreen(
                     // TODO: make OnRunProcessed have a bitmap rather than byte array and do this in the viewmodel
                     val stream = ByteArrayOutputStream()
                     stream.use {
-                        bitmap?.compress(
+                        bitmap.compress(
                             Bitmap.CompressFormat.JPEG,
                             80,
                             it
@@ -257,7 +248,6 @@ fun ActiveRunScreen(
                     modifier = Modifier.weight(1f),
                     isLoading = state.isSavingRun,
                     onClick = {
-                        Toast.makeText(context, "run finished", Toast.LENGTH_SHORT).show()
                         onAction(ActiveRunAction.OnFinishRunClick)
                     }
                 )

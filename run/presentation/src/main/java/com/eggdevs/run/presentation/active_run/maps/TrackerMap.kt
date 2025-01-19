@@ -55,7 +55,7 @@ fun TrackerMap(
     isRunFinished: Boolean = false,
     currentLocation: Location? = null,
     locations: List<List<LocationWithAltitudeTimestamp>> = listOf(),
-    onSnapshot: (Bitmap?) -> Unit = {},
+    onSnapshot: (Bitmap) -> Unit = {},
 ) {
     val context = LocalContext.current
     val mapStyle = remember {
@@ -132,7 +132,6 @@ fun TrackerMap(
                 triggerCapture = false
 
                 if (locations.flatten().isEmpty()) {
-                    onSnapshot(null)
                     return@MapEffect
                 }
 
