@@ -18,12 +18,14 @@ class RoomAnalyticsRepository(
             val maxRunSpeed = async { analyticsDao.getMaxRunSpeed() }
             val avgDistancePerRun = async { analyticsDao.getAverageDistancePerRun() }
             val avgPacePerRun = async { analyticsDao.getAveragePacePerRun() }
+            val highestHeartRate = async { analyticsDao.getHighestHeartRate() }
             RunAnalyticsValues(
                 totalDistanceRun = totalDistance.await(),
                 totalTimeRun = totalTimeRun.await().milliseconds,
                 fastestEverRun = maxRunSpeed.await(),
                 avgDistancePerRun = avgDistancePerRun.await(),
-                avgPacePerRun = avgPacePerRun.await()
+                avgPacePerRun = avgPacePerRun.await(),
+                highestHeartRate = highestHeartRate.await()
             )
         }
     }

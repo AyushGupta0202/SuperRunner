@@ -15,4 +15,6 @@ interface AnalyticsDao {
     suspend fun getAverageDistancePerRun(): Double
     @Query("SELECT AVG((durationMillis / 60000.0) / (distanceMeters / 1000.0)) FROM RunEntity")
     suspend fun getAveragePacePerRun(): Double
+    @Query("SELECT MAX(maxHeartRate) FROM RunEntity")
+    suspend fun getHighestHeartRate(): Int?
 }

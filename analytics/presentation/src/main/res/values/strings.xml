@@ -6,4 +6,5 @@
     <string name="fastest_ever_run">Fastest run ever</string>
     <string name="avg_distance_per_run">Avg. distance per run</string>
     <string name="avg_pace_per_run">Avg. pace per run</string>
+    <string name="highest_heart_rate">Highest heart rate</string>
 </resources>

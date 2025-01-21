@@ -88,6 +88,10 @@ fun AnalyticsDashboardScreen(
                 AnalyticsCardUi(
                     title = stringResource(id = R.string.avg_pace_per_run),
                     value = state.avgPace
+                ),
+                AnalyticsCardUi(
+                    title = stringResource(id = R.string.highest_heart_rate),
+                    value = state.highestHeartRate
                 )
             )
             Column(
@@ -141,7 +145,8 @@ fun AnalyticsDashboardScreenPreview() {
                 totalTimeRun = "0d 0h 0m",
                 avgDistance = "5.3 km",
                 avgPace = "7:10",
-                fastestEverRun = "143.7 km/h"
+                fastestEverRun = "143.7 km/h",
+                highestHeartRate = "150 bpm"
             )
         )
     }

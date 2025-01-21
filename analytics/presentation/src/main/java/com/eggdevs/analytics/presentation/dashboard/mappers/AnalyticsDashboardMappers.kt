@@ -4,6 +4,7 @@ import com.eggdevs.analytics.presentation.dashboard.AnalyticsDashboardState
 import com.eggdevs.analytics.domain.models.RunAnalyticsValues
 import com.eggdevs.core.presentation.ui.formatted
 import com.eggdevs.core.presentation.ui.formattedDayHoursMinutes
+import com.eggdevs.core.presentation.ui.toFormattedHeartRate
 import com.eggdevs.core.presentation.ui.toFormattedKm
 import com.eggdevs.core.presentation.ui.toFormattedKmh
 import kotlin.time.Duration.Companion.seconds
@@ -14,6 +15,7 @@ fun RunAnalyticsValues.toAnalyticsDashboardState(): AnalyticsDashboardState {
         totalTimeRun = totalTimeRun.formattedDayHoursMinutes(),
         avgDistance = (avgDistancePerRun / 1000.0).toFormattedKm(),
         avgPace = avgPacePerRun.seconds.formatted(),
-        fastestEverRun = fastestEverRun.toFormattedKmh()
+        fastestEverRun = fastestEverRun.toFormattedKmh(),
+        highestHeartRate = highestHeartRate.toFormattedHeartRate()
     )
 }

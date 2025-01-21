@@ -7,5 +7,6 @@ data class RunAnalyticsValues(
     val totalTimeRun: Duration = Duration.ZERO,
     val fastestEverRun: Double = 0.0,
     val avgDistancePerRun: Double = 0.0,
-    val avgPacePerRun: Double = 0.0
+    val avgPacePerRun: Double = 0.0,
+    val highestHeartRate: Int?
 )
