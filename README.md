@@ -47,6 +47,7 @@ A modern fitness tracking application for Android phones and Wear OS devices tha
 - **Dependency Injection**: Using Koin
 - **Single Activity**: Using Jetpack Navigation
 - **State Hoisting**: Composable state management
+- **Convention Plugins**: Custom gradle plugins for dependency management
 
 ### Project Structure
 The project follows a clean, modular architecture:
@@ -60,6 +61,8 @@ The project follows a clean, modular architecture:
   - `data/`
   - `utils/`
   - `notification/`
+  - `connectivity/`
+  - `database/`
 - `auth/` - Authentication feature module
 - `run/` - Run tracking feature module
 
@@ -79,7 +82,6 @@ The project follows a clean, modular architecture:
 - StateFlow/Flow
 - WorkManager
 - Room Database
-- DataStore
 
 ### Dependency Injection
 - Koin
