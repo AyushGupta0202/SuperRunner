@@ -2,6 +2,21 @@
 
 A modern fitness tracking application for Android phones and Wear OS devices that helps users track their runs with detailed metrics and analytics.
 
+## Screenshots 📱
+
+<p align="center">
+  <table>
+    <tr>
+      <th>Home Screen</th>
+      <th>Active Run Screen</th>
+    </tr>
+    <tr>
+      <td><img src="app/screenshots/super_runner_home.png" width="300" alt="Super Runner Home Screen"></td>
+      <td><img src="app/screenshots/super_runner_active_run.png" width="300" alt="Active Run Screen"></td>
+    </tr>
+  </table>
+</p>
+
 ## Features 🌟
 
 - **Run Tracking**: Real-time GPS tracking for runs with detailed metrics
@@ -116,7 +131,10 @@ The project follows a clean, modular architecture:
 
 ## Setup & Installation 🚀
 
-1. Clone the repository
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/super-runner.git
+   ```
 2. Open in Android Studio
 3. Sync Gradle files
 4. Add required API keys in `local.properties`:
